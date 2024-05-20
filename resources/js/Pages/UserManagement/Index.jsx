@@ -13,10 +13,22 @@ export default function UserManagement({ auth, users: initialUsers }) {
     const { post, setData } = useForm();
 
     const handleRoleChange = (userId) => {
-        setData('role', newRole);
+        // Pārbaude, vai pašreizējam lietotājam ir admin loma
+        if (user.role !== 'admin') {
+            console.error("You do not have permission to change user roles.");
+            return;
+        }
 
+        // Pārbaude, vai rediģējamā lietotāja loma nav admin
+        if (users.find(u => u.id === userId).role === 'admin') {
+            console.error("You cannot edit the role of an admin user.");
+            return;
+        }
+    
+        setData('role', newRole);
+    
         post(route('user.management.update-role', userId), {
-            data: { role: newRole }, // Pārliecinieties, ka dati tiek nosūtīti
+            data: { role: newRole },
             preserveScroll: true,
             onSuccess: () => {
                 setUsers(users.map((u) => u.id === userId ? { ...u, role: newRole } : u));
@@ -51,7 +63,7 @@ export default function UserManagement({ auth, users: initialUsers }) {
                                 {users.map((user) => (
                                     <li key={user.id} className={`bg-${user.role}-100 rounded-md p-2 mb-2`}>
                                         Name: {user.name}, Role: {user.role}
-                                        {user.id !== auth.user.id && (
+                                        {user.id !== auth.user.id && user.role !== 'admin' && (
                                             <>
                                                 {editingUser === user.id ? (
                                                     <div>
