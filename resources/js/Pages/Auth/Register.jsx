@@ -12,7 +12,7 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
-        role: "worker"  // Set a default role if needed
+        role: "worker", // Set a default role if needed
     });
 
     useEffect(() => {
@@ -54,7 +54,7 @@ export default function Register() {
                         id="role"
                         name="role"
                         value={data.role}
-                        className="mt-1 block w-full"
+                        className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
                         onChange={(e) => setData("role", e.target.value)}
                         required
                     >
@@ -96,7 +96,10 @@ export default function Register() {
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
+                    <InputLabel
+                        htmlFor="password_confirmation"
+                        value="Confirm Password"
+                    />
                     <TextInput
                         id="password_confirmation"
                         type="password"
@@ -104,10 +107,15 @@ export default function Register() {
                         value={data.password_confirmation}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) => setData("password_confirmation", e.target.value)}
+                        onChange={(e) =>
+                            setData("password_confirmation", e.target.value)
+                        }
                         required
                     />
-                    <InputError message={errors.password_confirmation} className="mt-2" />
+                    <InputError
+                        message={errors.password_confirmation}
+                        className="mt-2"
+                    />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
