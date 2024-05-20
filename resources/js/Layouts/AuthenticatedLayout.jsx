@@ -29,6 +29,24 @@ export default function Authenticated({ user, header, children }) {
                                     Dashboard
                                 </NavLink>
                             </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("user.management")}  // Correct route for User Management
+                                    active={route().current("user.management")}
+                                >
+                                    Lietotāju pārvaldība
+                                </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("data.management")}  // Correct route for Data Management
+                                    active={route().current("data.management")}
+                                >
+                                    Datu pārvaldība
+                                </NavLink>
+                            </div>
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
