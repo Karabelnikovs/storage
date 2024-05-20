@@ -8,6 +8,7 @@ import { Link } from "@inertiajs/react";
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const isAdmin = user.role === 'admin';
 
     return (
         <div className="min-h-screen bg-gradient-to-tr from-yellow-50 to-amber-200">
@@ -37,17 +38,28 @@ export default function Authenticated({ user, header, children }) {
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("user.management")} // Correct route for User Management
-                                    active={route().current("user.management")}
-                                >
-                                    Manage Users
-                                </NavLink>
+                                {/* Poga tiek parādīta tikai administratoriem */}
+                                {isAdmin ? (
+                                    <NavLink
+                                        href={route("user.management")}
+                                        active={route().current("user.management")}
+                                    >
+                                        Manage Users
+                                    </NavLink>
+                                ) : (
+                                    // Ja lietotājam nav admin lomas, pogu aizstājam ar "USERS"
+                                    <NavLink
+                                        href={route("user.management")}
+                                        active={route().current("user.management")}
+                                    >
+                                        Users
+                                    </NavLink>
+                                )}
                             </div>
 
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("data.management")} // Correct route for Data Management
+                                    href={route("data.management")}
                                     active={route().current("data.management")}
                                 >
                                     Manage Data
@@ -199,6 +211,7 @@ export default function Authenticated({ user, header, children }) {
             )}
 
             <main>{children}</main>
+
         </div>
     );
 }
