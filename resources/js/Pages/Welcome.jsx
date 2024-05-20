@@ -1,4 +1,5 @@
 import { Link, Head } from "@inertiajs/react";
+import { BiLogoCodepen } from "react-icons/bi";
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
     return (
@@ -6,7 +7,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
             <Head title="Welcome" />
 
             <div className="flex flex-col justify-center items-center h-screen w-full bg-gradient-to-r from-slate-400 to-green-200">
-                <h1 className="text-4xl font-bold mb-20">
+                <h1 className="text-4xl font-bold mb-8 flex flex-col items-center justify-center gap-10">
+                    <BiLogoCodepen size={60} />
                     Storage management app
                 </h1>
                 {auth.user ? (
