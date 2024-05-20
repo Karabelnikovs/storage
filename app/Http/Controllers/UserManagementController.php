@@ -1,30 +1,51 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class UserManagementController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the users.
+     *
+     * @return Response
+     */
+    public function index(): Response
     {
         $users = User::all();
-        return view('user_management.index', compact('users'));
+        return Inertia::render('UserManagement/Index', compact('users'));
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new user.
+     *
+     * @return Response
+     */
+    public function create(): Response
     {
-        return view('user_management.create');
+        return Inertia::render('UserManagement/Create');
     }
 
-    public function store(Request $request)
+    /**
+     * Store a newly created user in storage.
+     *
+     * @param  Request  $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|in:admin,worker,sorter',
+            'role' => ['required', Rule::in(['admin', 'worker', 'sorter'])],
         ]);
 
         User::create([
@@ -34,36 +55,66 @@ class UserManagementController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('user.management')->with('success', 'User created successfully.');
+        return redirect()->route('user.management.index')->with('success', 'User created successfully.');
     }
 
-    public function edit(User $user)
+    /**
+     * Show the form for editing the specified user.
+     *
+     * @param  User  $user
+     * @return Response
+     */
+    public function edit(User $user): Response
     {
-        return view('user_management.edit', compact('user'));
+        return Inertia::render('UserManagement/Edit', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    /**
+     * Update the specified user in storage.
+     *
+     * @param  Request  $request
+     * @param  User  $user
+     * @return RedirectResponse
+     */
+    public function update(Request $request, User $user): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($user->id),
+            ],
             'password' => 'nullable|string|min:8|confirmed',
-            'role' => 'required|in:admin,worker,sorter',
+            'role' => ['required', Rule::in(['admin', 'worker', 'sorter'])],
         ]);
 
-        $user->update([
+        $data = [
             'name' => $request->name,
             'email' => $request->email,
-            'password' => $request->password ? Hash::make($request->password) : $user->password,
             'role' => $request->role,
-        ]);
+        ];
 
-        return redirect()->route('user.management')->with('success', 'User updated successfully.');
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('user.management.index')->with('success', 'User updated successfully.');
     }
 
-    public function destroy(User $user)
+    /**
+     * Remove the specified user from storage.
+     *
+     * @param  User  $user
+     * @return RedirectResponse
+     */
+    public function destroy(User $user): RedirectResponse
     {
         $user->delete();
-        return redirect()->route('user.management')->with('success', 'User deleted successfully.');
+        return redirect()->route('user.management.index')->with('success', 'User deleted successfully.');
     }
 }
