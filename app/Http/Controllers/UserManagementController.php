@@ -17,12 +17,17 @@ class UserManagementController extends Controller
      *
      * @return Response
      */
-    public function index(): Response
+    // public function index(): Response
+    // {
+    //     $users = User::all();
+    //     return Inertia::render('UserManagement/Index', compact('users'));
+    // }
+    public function index()
     {
-        $users = User::all();
-        return Inertia::render('UserManagement/Index', compact('users'));
+        return Inertia::render('Index', [
+            'users' => User::all()
+        ]);
     }
-
     /**
      * Show the form for creating a new user.
      *
@@ -30,7 +35,7 @@ class UserManagementController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('UserManagement/Create');
+        return Inertia::render('Create');
     }
 
     /**
@@ -66,7 +71,7 @@ class UserManagementController extends Controller
      */
     public function edit(User $user): Response
     {
-        return Inertia::render('UserManagement/Edit', compact('user'));
+        return Inertia::render('Edit', compact('user'));
     }
 
     /**

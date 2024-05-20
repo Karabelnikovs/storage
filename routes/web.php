@@ -28,7 +28,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
-    
+
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user.management');
     Route::get('/user-management/create', [UserManagementController::class, 'create'])->name('user.management.create');
     Route::post('/user-management', [UserManagementController::class, 'store'])->name('user.management.store');
@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-management/{user}/update-role', [UserManagementController::class, 'updateRole'])->name('user.management.update-role');
 
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
-    Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
+    // Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
 });
 
 require __DIR__.'/auth.php';
