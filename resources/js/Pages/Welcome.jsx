@@ -5,21 +5,34 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
         <>
             <Head title="Welcome" />
 
-            <nav className="-mx-3 flex flex-1 justify-end">
+            <div className="flex flex-col justify-center items-center h-screen w-full bg-gradient-to-r from-slate-400 to-green-200">
+                <h1 className="text-4xl font-bold mb-20">
+                    Storage management app
+                </h1>
                 {auth.user ? (
                     <Link
+                        className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
                         href={route("dashboard")}
-                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
                         Dashboard
                     </Link>
                 ) : (
                     <>
-                        <Link href={route("login")}>Log in</Link>
-                        <Link href={route("register")}>Register</Link>
+                        <Link
+                            className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
+                            href={route("login")}
+                        >
+                            Log in
+                        </Link>
+                        <Link
+                            className="mt-8 inline-flex items-center justify-center rounded-xl bg-green-600 py-3 px-6 font-dm text-base font-medium text-white shadow-xl shadow-green-400/75 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
+                            href={route("register")}
+                        >
+                            Register
+                        </Link>
                     </>
                 )}
-            </nav>
+            </div>
         </>
     );
 }
