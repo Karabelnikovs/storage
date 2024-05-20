@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-management/create', [UserManagementController::class, 'store'])->name('user.management.create');
 
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
-    // Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
+     Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
 });
 
 require __DIR__.'/auth.php';
