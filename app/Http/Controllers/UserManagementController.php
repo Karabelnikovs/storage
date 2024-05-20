@@ -55,7 +55,7 @@ class UserManagementController extends Controller
             'role' => $request->role,
         ]);
 
-        return redirect()->route('user.management.index')->with('success', 'User created successfully.');
+        return redirect()->route('user.management')->with('success', 'User created successfully.');
     }
 
     /**
@@ -103,7 +103,25 @@ class UserManagementController extends Controller
 
         $user->update($data);
 
-        return redirect()->route('user.management.index')->with('success', 'User updated successfully.');
+        return redirect()->route('user.management')->with('success', 'User updated successfully.');
+    }
+
+    /**
+     * Update the role of the specified user.
+     *
+     * @param  Request  $request
+     * @param  User  $user
+     * @return RedirectResponse
+     */
+    public function updateRole(Request $request, User $user): RedirectResponse
+    {
+        $request->validate([
+            'role' => ['required', Rule::in(['admin', 'worker', 'sorter'])],
+        ]);
+
+        $user->update(['role' => $request->role]);
+
+        return redirect()->route('user.management')->with('success', 'Role updated successfully.');
     }
 
     /**
@@ -115,6 +133,6 @@ class UserManagementController extends Controller
     public function destroy(User $user): RedirectResponse
     {
         $user->delete();
-        return redirect()->route('user.management.index')->with('success', 'User deleted successfully.');
+        return redirect()->route('user.management')->with('success', 'User deleted successfully.');
     }
 }

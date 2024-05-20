@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-management', [UserManagementController::class, 'store'])->name('user.management.store');
     Route::get('/user-management/{user}/edit', [UserManagementController::class, 'edit'])->name('user.management.edit');
     Route::put('/user-management/{user}', [UserManagementController::class, 'update'])->name('user.management.update');
+    Route::post('/user-management/{user}/update-role', [UserManagementController::class, 'updateRole'])->name('user.management.update-role');
+
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
     Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
 });
