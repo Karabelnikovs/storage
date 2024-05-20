@@ -58,9 +58,9 @@ export default function Register() {
                         onChange={(e) => setData("role", e.target.value)}
                         required
                     >
-                        <option value="admin">Admin</option>
-                        <option value="worker">Worker</option>
-                        <option value="sorter">Sorter</option>
+                        <option value="admin">Administrātors</option>
+                        <option value="worker">Noliktavas darbinieks</option>
+                        <option value="sorter">Plauktu Kārtotājs</option>
                     </select>
                     <InputError message={errors.role} className="mt-2" />
                 </div>
