@@ -12,7 +12,7 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
-        role: ""
+        role: "worker"  // Set a default role if needed
     });
 
     useEffect(() => {
@@ -23,7 +23,6 @@ export default function Register() {
 
     const submit = (e) => {
         e.preventDefault();
-
         post(route("register"));
     };
 
@@ -33,9 +32,9 @@ export default function Register() {
 
             <form onSubmit={submit}>
                 <h1 className="mb-4 text-4xl font-bold">Register</h1>
+
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
-
                     <TextInput
                         id="name"
                         name="name"
@@ -46,31 +45,28 @@ export default function Register() {
                         onChange={(e) => setData("name", e.target.value)}
                         required
                     />
-
                     <InputError message={errors.name} className="mt-2" />
                 </div>
 
-                <div>
+                <div className="mt-4">
                     <InputLabel htmlFor="role" value="Role" />
-
-                    <TextInput
+                    <select
                         id="role"
                         name="role"
                         value={data.role}
                         className="mt-1 block w-full"
-                        autoComplete="role"
-                        isFocused={true}
                         onChange={(e) => setData("role", e.target.value)}
                         required
-                    />
-
+                    >
+                        <option value="admin">Admin</option>
+                        <option value="worker">Worker</option>
+                        <option value="sorter">Sorter</option>
+                    </select>
                     <InputError message={errors.role} className="mt-2" />
                 </div>
 
-
                 <div className="mt-4">
                     <InputLabel htmlFor="email" value="Email" />
-
                     <TextInput
                         id="email"
                         type="email"
@@ -81,13 +77,11 @@ export default function Register() {
                         onChange={(e) => setData("email", e.target.value)}
                         required
                     />
-
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
-
                     <TextInput
                         id="password"
                         type="password"
@@ -98,16 +92,11 @@ export default function Register() {
                         onChange={(e) => setData("password", e.target.value)}
                         required
                     />
-
                     <InputError message={errors.password} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel
-                        htmlFor="password_confirmation"
-                        value="Confirm Password"
-                    />
-
+                    <InputLabel htmlFor="password_confirmation" value="Confirm Password" />
                     <TextInput
                         id="password_confirmation"
                         type="password"
@@ -115,16 +104,10 @@ export default function Register() {
                         value={data.password_confirmation}
                         className="mt-1 block w-full"
                         autoComplete="new-password"
-                        onChange={(e) =>
-                            setData("password_confirmation", e.target.value)
-                        }
+                        onChange={(e) => setData("password_confirmation", e.target.value)}
                         required
                     />
-
-                    <InputError
-                        message={errors.password_confirmation}
-                        className="mt-2"
-                    />
+                    <InputError message={errors.password_confirmation} className="mt-2" />
                 </div>
 
                 <div className="flex items-center justify-end mt-4">
