@@ -35,10 +35,6 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Add Product
                                 </NavLink>
-                            </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                {/* Poga tiek parādīta tikai administratoriem */}
                                 {isAdmin ? (
                                     <NavLink
                                         href={route("user.management")}
@@ -59,9 +55,6 @@ export default function Authenticated({ user, header, children }) {
                                         Users
                                     </NavLink>
                                 )}
-                            </div>
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route("data.management")}
                                     active={route().current("data.management")}
@@ -177,6 +170,28 @@ export default function Authenticated({ user, header, children }) {
                             active={route().current("products.index")}
                         >
                             Add Product
+                        </ResponsiveNavLink>
+                        {isAdmin ? (
+                            <ResponsiveNavLink
+                                href={route("user.management")}
+                                active={route().current("user.management")}
+                            >
+                                Manage Users
+                            </ResponsiveNavLink>
+                        ) : (
+                            // Ja lietotājam nav admin lomas, pogu aizstājam ar "USERS"
+                            <ResponsiveNavLink
+                                href={route("user.management")}
+                                active={route().current("user.management")}
+                            >
+                                Users
+                            </ResponsiveNavLink>
+                        )}
+                        <ResponsiveNavLink
+                            href={route("data.management")}
+                            active={route().current("data.management")}
+                        >
+                            Manage Data
                         </ResponsiveNavLink>
                     </div>
 

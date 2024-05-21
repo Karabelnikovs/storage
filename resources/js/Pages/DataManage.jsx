@@ -19,7 +19,7 @@ const DataManage = ({ products, auth }) => {
                                 </h2>
                                 <div className="grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-10  mt-6">
                                     {products.map((product) => (
-                                        <div className="w-48 h-96">
+                                        <div className="w-48 h-48">
                                             <UserCard
                                                 name={product.name}
                                                 role={product.quantity}
