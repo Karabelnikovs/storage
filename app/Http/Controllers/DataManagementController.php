@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
+
 use Inertia\Inertia;
-use Inertia\Response;
 
 class DataManagementController extends Controller
 {
@@ -18,4 +17,18 @@ class DataManagementController extends Controller
             'products' => Products::all()
         ]);
     }
+
+    public function destroy($id): JsonResponse
+    {
+        try {
+            $product = Products::findOrFail($id);
+            $product->delete();
+
+            return response()->json(['message' => 'Product deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Product deletion failed'], 500);
+        }
+    }
 }
+
+

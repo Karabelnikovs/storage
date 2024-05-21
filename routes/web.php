@@ -39,6 +39,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/user-management/{user}/update-role', [UserManagementController::class, 'updateRole'])->name('user.management.update-role');
     Route::post('/user-management/create', [UserManagementController::class, 'store'])->name('user.management.create');
 
+
+    Route::delete('/products/{id}', [DataManagementController::class, 'destroy'])->name('products.destroy');
+Route::get('/data-manage', [DataManagementController::class, 'index'])->name('data.manage');
+
+
+
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
      Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
 });
