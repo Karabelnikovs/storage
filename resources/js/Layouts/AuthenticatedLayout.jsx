@@ -8,9 +8,10 @@ import { Link } from "@inertiajs/react";
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const isAdmin = user.role === 'admin';
 
     return (
-        <div className="min-h-screen bg-gradient-to-r from-slate-400 to-green-200">
+        <div className="min-h-screen bg-gradient-to-tr from-yellow-50 to-amber-200">
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
@@ -34,18 +35,35 @@ export default function Authenticated({ user, header, children }) {
                                 >
                                     Add Product
                                 </NavLink>
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                {/* Poga tiek parādīta tikai administratoriem */}
+                                {isAdmin ? (
+                                    <NavLink
+                                        href={route("user.management")}
+                                        active={route().current("user.management")}
+                                    >
+                                        Manage Users
+                                    </NavLink>
+                                ) : (
+                                    // Ja lietotājam nav admin lomas, pogu aizstājam ar "USERS"
+                                    <NavLink
+                                        href={route("user.management")}
+                                        active={route().current("user.management")}
+                                    >
+                                        Users
+                                    </NavLink>
+                                )}
+                            </div>
+
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("user.management")}
-                                    active={route().current("user.management")}
-                                >
-                                    Manage Users
-                                </NavLink>
-                                {/* <NavLink
                                     href={route("data.management")}
                                     active={route().current("data.management")}
                                 >
                                     Manage Data
-                                </NavLink> */}
+                                </NavLink>
                             </div>
                         </div>
 
@@ -143,7 +161,7 @@ export default function Authenticated({ user, header, children }) {
                         " sm:hidden"
                     }
                 >
-                    <div className="pt-2 pb-3 space-y-1 flex border-b">
+                    <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink
                             href={route("dashboard")}
                             active={route().current("dashboard")}
@@ -156,18 +174,6 @@ export default function Authenticated({ user, header, children }) {
                         >
                             Add Product
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink
-                            href={route("user.management")}
-                            active={route().current("user.management")}
-                        >
-                            Manage Users
-                        </ResponsiveNavLink>
-                        {/* <ResponsiveNavLink
-                                    href={route("data.management")}
-                                    active={route().current("data.management")}
-                                >
-                                    Manage Data
-                                </ResponsiveNavLink> */}
                     </div>
 
                     <div className="pt-4 pb-1 border-t border-gray-200">
@@ -205,6 +211,7 @@ export default function Authenticated({ user, header, children }) {
             )}
 
             <main>{children}</main>
+
         </div>
     );
 }
