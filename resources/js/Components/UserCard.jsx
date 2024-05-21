@@ -5,6 +5,9 @@ const UserCard = ({ name, role, email }) => {
     return (
         <>
             <div class="rounded-xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl">
+                <a className="absolute right-3 top-3 text-gray-400" href="#">
+                    <RiEditCircleLine size={25} />
+                </a>
                 <div class="text-gray-500 group-hover:scale-105 transition-all">
                     <svg
                         class="w-16 h-16"
@@ -26,13 +29,8 @@ const UserCard = ({ name, role, email }) => {
                     <p class="text-gray-500 text-sm">{role}</p>
                 </div>
                 <div class="flex items-center transition-all duration-500 delay-200 group-hover:bottom-3 -bottom-full absolute gap-2 justify-evenly w-full">
-                    <div className="flex flex-col items-center gap-3">
-                        <div class="flex gap-2 text-sm bg-gray-700 text-white p-1 hover:p-2 transition-all duration-500 delay-200 rounded-full shadow-sm px-3">
-                            {email}
-                        </div>
-                        <a href="#">
-                            <RiEditCircleLine size={25} />
-                        </a>
+                    <div class="flex gap-2 text-sm bg-gray-700 text-white p-1 hover:p-2 transition-all duration-500 delay-200 rounded-full shadow-sm px-3">
+                        {email}
                     </div>
                 </div>
             </div>
