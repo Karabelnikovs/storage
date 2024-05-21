@@ -4,7 +4,7 @@ import { RiEditCircleLine } from "react-icons/ri";
 const UserCard = ({ name, role, email }) => {
     return (
         <>
-            <div class="rounded-xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl">
+            <div class="rounded-xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl bg-gradient-to-bl from-green-100 to-lime-200">
                 <a className="absolute right-3 top-3 text-gray-400" href="#">
                     <RiEditCircleLine size={22} />
                 </a>

@@ -8,10 +8,10 @@ import { Link } from "@inertiajs/react";
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
-    const isAdmin = user.role === 'admin';
+    const isAdmin = user.role === "admin";
 
     return (
-        <div className="min-h-screen bg-gradient-to-tr from-yellow-50 to-amber-200">
+        <div className="min-h-screen bg-gradient-to-r from-slate-400 to-green-200">
             <nav className="bg-white border-b border-gray-100">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex justify-between h-16">
@@ -42,7 +42,9 @@ export default function Authenticated({ user, header, children }) {
                                 {isAdmin ? (
                                     <NavLink
                                         href={route("user.management")}
-                                        active={route().current("user.management")}
+                                        active={route().current(
+                                            "user.management"
+                                        )}
                                     >
                                         Manage Users
                                     </NavLink>
@@ -50,7 +52,9 @@ export default function Authenticated({ user, header, children }) {
                                     // Ja lietotājam nav admin lomas, pogu aizstājam ar "USERS"
                                     <NavLink
                                         href={route("user.management")}
-                                        active={route().current("user.management")}
+                                        active={route().current(
+                                            "user.management"
+                                        )}
                                     >
                                         Users
                                     </NavLink>
@@ -211,7 +215,6 @@ export default function Authenticated({ user, header, children }) {
             )}
 
             <main>{children}</main>
-
         </div>
     );
 }
