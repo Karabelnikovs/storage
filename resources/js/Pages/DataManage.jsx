@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import UserCard from "@/Components/UserCard";
 import { Head, useForm } from "@inertiajs/react";
+import AddProductCard from "@/Components/AddProductCard";
 const DataManage = ({ products, auth }) => {
     const { user } = auth;
+    const { name, role } = user;
     return (
         <>
             <AuthenticatedLayout user={user}>
@@ -25,6 +27,11 @@ const DataManage = ({ products, auth }) => {
                                             />
                                         </div>
                                     ))}
+                                    {role === "admin" && (
+                                        <div className="w-48 h-96">
+                                            <AddProductCard />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
