@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import AddUserCard from "@/Components/AddUserCard";
 import UserCard from "@/Components/UserCard";
 import { Head, useForm } from "@inertiajs/react";
 
@@ -76,6 +77,12 @@ export default function UserManagement({ auth, users }) {
                                         />
                                     </div>
                                 ))}
+
+                                {role === "admin" && (
+                                    <div className="w-48 h-96">
+                                        <AddUserCard />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

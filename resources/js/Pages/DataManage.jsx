@@ -6,14 +6,7 @@ const DataManage = ({ products, auth }) => {
     const { user } = auth;
     return (
         <>
-            <AuthenticatedLayout
-                user={user}
-                header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Manage Data
-                    </h2>
-                }
-            >
+            <AuthenticatedLayout user={user}>
                 <Head title="Manage Data" />
 
                 {products.map((product) => (

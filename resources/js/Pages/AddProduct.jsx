@@ -23,14 +23,7 @@ const AddProduct = ({ auth, products }) => {
     console.log(products);
     return (
         <>
-            <AuthenticatedLayout
-                user={auth.user}
-                header={
-                    <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-                        Add Product
-                    </h2>
-                }
-            >
+            <AuthenticatedLayout user={auth.user}>
                 <Head title="Add Product" />
 
                 <div className="flex items-center justify-center">
