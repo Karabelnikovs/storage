@@ -19,6 +19,11 @@ const DataManage = ({ products: initialProducts, auth }) => {
         }
     };
 
+    const handleEdit = (productId) => {
+        // Redirect to the edit page for the product
+        window.location.href = `/products/${productId}/edit`;
+    };
+
     return (
         <>
             <AuthenticatedLayout user={user}>
@@ -38,6 +43,12 @@ const DataManage = ({ products: initialProducts, auth }) => {
                                                 role={product.quantity}
                                                 email={product.description}
                                             />
+                                            <button
+                                                onClick={() => handleEdit(product.id)}
+                                                className="mt-2 text-sm bg-blue-500 text-white p-1 hover:bg-blue-700 transition-all duration-500 rounded"
+                                            >
+                                                Edit
+                                            </button>
                                             <button
                                                 onClick={() => handleDelete(product.id)}
                                                 className="mt-2 text-sm bg-red-500 text-white p-1 hover:bg-red-700 transition-all duration-500 rounded"

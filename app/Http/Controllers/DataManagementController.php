@@ -29,6 +29,13 @@ class DataManagementController extends Controller
             return response()->json(['error' => 'Product deletion failed'], 500);
         }
     }
+    public function edit($id)
+{
+    $product = Products::findOrFail($id);
+    return Inertia::render('ProductEdit', [
+        'product' => $product
+    ]);
+}
 }
 
 

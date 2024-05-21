@@ -38,10 +38,13 @@ Route::middleware('auth')->group(function () {
     Route::put('/user-management/{user}', [UserManagementController::class, 'update'])->name('user.management.update');
     Route::post('/user-management/{user}/update-role', [UserManagementController::class, 'updateRole'])->name('user.management.update-role');
     Route::post('/user-management/create', [UserManagementController::class, 'store'])->name('user.management.create');
+    Route::post('/products/{id}', 'App\Http\Controllers\ProductController@update');
+    Route::put('/products/{id}', 'App\Http\Controllers\ProductController@update');
 
 
     Route::delete('/products/{id}', [DataManagementController::class, 'destroy'])->name('products.destroy');
 Route::get('/data-manage', [DataManagementController::class, 'index'])->name('data.manage');
+Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
 
 
