@@ -6,7 +6,7 @@ const UserCard = ({ name, role, email }) => {
         <>
             <div class="rounded-xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl">
                 <a className="absolute right-3 top-3 text-gray-400" href="#">
-                    <RiEditCircleLine size={25} />
+                    <RiEditCircleLine size={22} />
                 </a>
                 <div class="text-gray-500 group-hover:scale-105 transition-all">
                     <svg
