@@ -4,7 +4,7 @@ import { PiUserCirclePlusThin } from "react-icons/pi";
 const AddUserCard = () => {
     return (
         <>
-            <div className="rounded-xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl bg-gradient-to-bl from-green-100 to-lime-200">
+            <div className="rounded-2xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl bg-gradient-to-bl from-green-100 to-lime-200">
                 <div className="text-gray-500 group-hover:scale-105 transition-all">
                     <PiUserCirclePlusThin size={100} />
                 </div>

@@ -14,7 +14,7 @@ class DataManagementController extends Controller
     public function index()
     {
         return Inertia::render('DataManage', [
-            'products' => Products::all()
+            'products' => Products::paginate(4)
         ]);
     }
 

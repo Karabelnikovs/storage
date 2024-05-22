@@ -1,20 +1,29 @@
-import axios from 'axios';
+import axios from "axios";
 import React, { useState } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import UserCard from "@/Components/UserCard";
 import { Head } from "@inertiajs/react";
 import AddProductCard from "@/Components/AddProductCard";
-
-
+import AddProductModal from "@/Components/AddProductModal";
 const DataManage = ({ products: initialProducts, auth }) => {
-    const [products, setProducts] = useState(initialProducts);
+    const [showAdd, setShowAdd] = useState(false);
+    const [products, setProducts] = useState(initialProducts.data);
+    const [productProps, setProductProps] = useState({
+        id: "",
+        name: "",
+        quantity: "",
+        description: "",
+    });
+    const handleShowAdd = () => {
+        setShowAdd(true);
+    };
     const { user } = auth;
     const { role } = user;
 
     const handleDelete = async (productId) => {
         try {
             await axios.delete(`/products/${productId}`);
-            setProducts(products.filter(product => product.id !== productId));
+            setProducts(products.filter((product) => product.id !== productId));
         } catch (error) {
             console.error("There was an error deleting the product!", error);
         }
@@ -31,36 +40,30 @@ const DataManage = ({ products: initialProducts, auth }) => {
                 <Head title="Manage Data" />
                 <div className="py-12">
                     <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                        
                         <div className="bg-white overflow-hidden shadow-2xl sm:rounded-3xl">
                             <div className="p-6 bg-white flex justify-center items-center flex-col">
-                                
                                 <h2 className="text-2xl font-bold mb-4">
                                     All Products:
                                 </h2>
-                                <div className="flex flex-wrap gap-4">
-                                    <AddProductCard />
-                                </div>
+
                                 <div className="grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-10 mt-6">
-                                    
                                     {products.map((product) => (
-                                        
-                                        <div className="w-48 h-48" key={product.id}>
-                                            
+                                        <div
+                                            className="w-48 h-48"
+                                            key={product.id}
+                                        >
                                             <UserCard
                                                 name={product.name}
                                                 role={product.quantity}
                                                 email={product.description}
                                             />
-                                            <button
-                                                onClick={() => handleEdit(product.id)}
-                                                className="mt-2 text-sm bg-blue-500 text-white p-1 hover:bg-blue-700 transition-all duration-500 rounded"
-                                            >
-                                                
+                                            <button className="mt-2 text-sm bg-blue-500 text-white p-1 hover:bg-blue-700 transition-all duration-500 rounded">
                                                 Edit
                                             </button>
                                             <button
-                                                onClick={() => handleDelete(product.id)}
+                                                onClick={() =>
+                                                    handleDelete(product.id)
+                                                }
                                                 className="mt-2 text-sm bg-red-500 text-white p-1 hover:bg-red-700 transition-all duration-500 rounded"
                                             >
                                                 Delete
@@ -69,11 +72,19 @@ const DataManage = ({ products: initialProducts, auth }) => {
                                     ))}
                                     {role === "admin" && (
                                         <div className="w-48 h-96">
-                                            <AddProductCard />
+                                            <button
+                                                onClick={() => handleShowAdd()}
+                                            >
+                                                <AddProductCard className="cursor-pointer" />
+                                            </button>
                                         </div>
                                     )}
+                                    {showAdd && (
+                                        <AddProductModal
+                                            setShowAdd={setShowAdd}
+                                        />
+                                    )}
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
