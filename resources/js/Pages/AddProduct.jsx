@@ -5,9 +5,10 @@ import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
-import { Head, Link, useForm, router } from "@inertiajs/react";
+import { Head, Link, useForm, router, usePage } from "@inertiajs/react";
 
 const AddProduct = ({ auth, products }) => {
+    const { flash, errors } = usePage().props;
     const { data, setData, reset } = useForm({
         name: "",
         description: "",
@@ -63,6 +64,11 @@ const AddProduct = ({ auth, products }) => {
                                                         Name
                                                     </label>
                                                 </div>
+                                                {errors.name && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.name}
+                                                    </p>
+                                                )}
                                                 <div className="relative">
                                                     <input
                                                         autoComplete="off"
@@ -86,6 +92,11 @@ const AddProduct = ({ auth, products }) => {
                                                         Description
                                                     </label>
                                                 </div>
+                                                {errors.description && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.description}
+                                                    </p>
+                                                )}
                                                 <div className="relative">
                                                     <input
                                                         autoComplete="off"
@@ -110,6 +121,11 @@ const AddProduct = ({ auth, products }) => {
                                                         Quantity
                                                     </label>
                                                 </div>
+                                                {errors.quantity && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.quantity}
+                                                    </p>
+                                                )}
                                                 <div className="relative">
                                                     <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-green-100 to-lime-200 py-3 px-6 font-dm text-base font-medium text-gray-440 shadow-xl shadow-lime-300/45 transition-transform duration-200 ease-in-out hover:scale-[1.02]">
                                                         Submit

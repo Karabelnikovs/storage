@@ -18,24 +18,15 @@ class DataManagementController extends Controller
         ]);
     }
 
-    public function destroy($id): JsonResponse
+    public function destroy($id)
     {
-        try {
             $product = Products::findOrFail($id);
             $product->delete();
 
-            return response()->json(['message' => 'Product deleted successfully']);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Product deletion failed'], 500);
-        }
+            return back()->with('message', 'Deleted succesfully!');
+         
     }
-    public function edit($id)
-{
-    $product = Products::findOrFail($id);
-    return Inertia::render('ProductEdit', [
-        'product' => $product
-    ]);
-}
+    
 }
 
 

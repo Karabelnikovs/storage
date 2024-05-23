@@ -18,7 +18,7 @@ class ProductController extends Controller
     }
     public function store(Request $request)
     {
-        try {
+        
             $data = $request->validate([
                 'name' => 'required|min:3',
                 'description' => 'required|min:3',
@@ -27,26 +27,26 @@ class ProductController extends Controller
     
             Products::create($data);
             
-            return back()->with('message', 'Produkts ir pievienots veiksmīgi!');
-        } catch (\Exception $e) {
-            return back()->withErrors(['error' => 'Kļūda: ' . $e->getMessage()]);
-        }
+            return back()->with('message', 'Product added succesfully!');
+        
     }
-    public function edit($id)
-{
-    $product = Products::findOrFail($id);
-    return Inertia::render('ProductEdit', [
-        'product' => $product
-    ]);
-}
 
-public function update(Request $request, $id)
-{
-    $product = Products::findOrFail($id);
-    $product->update($request->all());
 
-    // Pēc veiksmīgas atjaunināšanas, pāradresē lietotāju uz /data-management
-    return redirect('/data-management');
-}
+    public function update(Request $request, $id)
+    {
+
+        $product = Products::findOrFail($id);
+        $data = $request->validate([
+            'name' => 'required|min:3',
+            'description' => 'required|min:3',
+            'quantity' => 'required|integer',
+        ]);
+
+        $product->update($data);
+
+        return redirect(route("data.management"))->with('message', 'Product updated succesfully!');
+        
+
+    }
 
 }

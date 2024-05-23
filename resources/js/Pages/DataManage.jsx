@@ -1,38 +1,45 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import UserCard from "@/Components/UserCard";
-import { Head } from "@inertiajs/react";
+import { Head, usePage } from "@inertiajs/react";
 import AddProductCard from "@/Components/AddProductCard";
 import AddProductModal from "@/Components/AddProductModal";
+import EditProductModal from "@/Components/EditProductModal";
+import DeleteProductModal from "@/Components/DeleteProductModal";
+import toast from "react-hot-toast";
+import ProductCard from "@/Components/ProductCard";
+
 const DataManage = ({ products: initialProducts, auth }) => {
     const [showAdd, setShowAdd] = useState(false);
+    const [showEdit, setShowEdit] = useState(false);
+    const [showDelete, setShowDelete] = useState(false);
     const [products, setProducts] = useState(initialProducts.data);
-    const [productProps, setProductProps] = useState({
-        id: "",
-        name: "",
-        quantity: "",
-        description: "",
-    });
+    const [editProduct, setEditProduct] = useState(null);
+    const [deleteProduct, setDeleteProduct] = useState(false);
+    const { flash, errors } = usePage().props;
+
     const handleShowAdd = () => {
         setShowAdd(true);
     };
+
+    const handleShowEdit = (product) => {
+        setShowEdit(true);
+        setEditProduct(product);
+    };
+    const handleShowDelete = (product) => {
+        setShowDelete(true);
+        setDeleteProduct(product);
+    };
+
+    useEffect(() => {
+        if (flash && flash.message) {
+            toast.success(flash.message);
+        }
+    }, [flash]);
+
     const { user } = auth;
     const { role } = user;
-
-    const handleDelete = async (productId) => {
-        try {
-            await axios.delete(`/products/${productId}`);
-            setProducts(products.filter((product) => product.id !== productId));
-        } catch (error) {
-            console.error("There was an error deleting the product!", error);
-        }
-    };
-
-    const handleEdit = (productId) => {
-        // Redirect to the edit page for the product
-        window.location.href = `/products/${productId}/edit`;
-    };
 
     return (
         <>
@@ -52,39 +59,43 @@ const DataManage = ({ products: initialProducts, auth }) => {
                                             className="w-48 h-48"
                                             key={product.id}
                                         >
-                                            <UserCard
+                                            <ProductCard
                                                 name={product.name}
-                                                role={product.quantity}
-                                                email={product.description}
-                                            />
-                                            <button className="mt-2 text-sm bg-blue-500 text-white p-1 hover:bg-blue-700 transition-all duration-500 rounded">
-                                                Edit
-                                            </button>
-                                            <button
-                                                onClick={() =>
-                                                    handleDelete(product.id)
+                                                quantity={product.quantity}
+                                                description={
+                                                    product.description
                                                 }
-                                                className="mt-2 text-sm bg-red-500 text-white p-1 hover:bg-red-700 transition-all duration-500 rounded"
-                                            >
-                                                Delete
-                                            </button>
+                                                handleShowEdit={handleShowEdit}
+                                                product={product}
+                                                handleShowDelete={
+                                                    handleShowDelete
+                                                }
+                                            />
                                         </div>
                                     ))}
-                                    {role === "admin" && (
-                                        <div className="w-48 h-96">
-                                            <button
-                                                onClick={() => handleShowAdd()}
-                                            >
-                                                <AddProductCard className="cursor-pointer" />
-                                            </button>
-                                        </div>
-                                    )}
-                                    {showAdd && (
-                                        <AddProductModal
-                                            setShowAdd={setShowAdd}
-                                        />
-                                    )}
                                 </div>
+                                {role === "admin" && (
+                                    <div className="w-48 h-48 flex justify-center items-center">
+                                        <button onClick={() => handleShowAdd()}>
+                                            <AddProductCard className="cursor-pointer" />
+                                        </button>
+                                    </div>
+                                )}
+                                {showAdd && (
+                                    <AddProductModal setShowAdd={setShowAdd} />
+                                )}
+                                {showEdit && editProduct && (
+                                    <EditProductModal
+                                        product={editProduct}
+                                        setShowEdit={setShowEdit}
+                                    />
+                                )}
+                                {showDelete && deleteProduct && (
+                                    <DeleteProductModal
+                                        product={deleteProduct}
+                                        setShowDelete={setShowDelete}
+                                    />
+                                )}
                             </div>
                         </div>
                     </div>

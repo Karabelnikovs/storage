@@ -46,7 +46,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/data-manage', [DataManagementController::class, 'index'])->name('data.manage');
 Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
 
-
+    Route::patch('/products/edit/{product}', [ProductController::class, 'update'])->name('products.update');
 
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
      Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
