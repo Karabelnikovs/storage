@@ -2,6 +2,8 @@ import React from "react";
 import { Head, Link, useForm, router, usePage } from "@inertiajs/react";
 
 const EditProductModal = ({ setShowEdit, auth, product }) => {
+    // todo kads sito safixo ludzu neiet edit, mos prpblema controlleri es nez
+
     const { flash, errors } = usePage().props;
 
     const { data, setData, reset } = useForm({

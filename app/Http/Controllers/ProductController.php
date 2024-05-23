@@ -35,6 +35,9 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
 
+
+        
+
         $product = Products::findOrFail($id);
         $data = $request->validate([
             'name' => 'required|min:3',
