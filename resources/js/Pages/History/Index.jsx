@@ -1,10 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
 export default function Index({ auth }) {
     const { user } = auth;
-    const { name, role } = user;
     const [history, setHistory] = useState([]);
 
     useEffect(() => {
@@ -22,7 +21,7 @@ export default function Index({ auth }) {
     };
 
     return (
-        <AuthenticatedLayout user={user} className="">
+        <AuthenticatedLayout user={user}>
             <Head title="History" />
             <div className="py-12">
                 <div className="max-w-7xl my-auto mx-auto sm:px-6 lg:px-8">

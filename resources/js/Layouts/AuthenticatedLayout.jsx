@@ -78,7 +78,7 @@ export default function Authenticated({ user, header, children }) {
                                         )}
                                     >
                                         View Activity History
-                                    </NavLink>
+                                    </NavLink>  
                                 </div>
                             </div>
 
