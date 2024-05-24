@@ -11,7 +11,6 @@ class Orders extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
         'status',
     ];
 }

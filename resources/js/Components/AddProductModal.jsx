@@ -14,8 +14,10 @@ const AddProductModal = ({ setShowAdd }) => {
     const validate = () => {
         const newErrors = {};
         if (!data.name) newErrors.name = "Name is required.";
-        if (!data.description) newErrors.description = "Description is required.";
-        if (!data.quantity || data.quantity < 1) newErrors.quantity = "Quantity must be at least 1.";
+        if (!data.description)
+            newErrors.description = "Description is required.";
+        if (!data.quantity || data.quantity < 1)
+            newErrors.quantity = "Quantity must be at least 1.";
         return newErrors;
     };
 
@@ -25,16 +27,15 @@ const AddProductModal = ({ setShowAdd }) => {
         if (Object.keys(validationErrors).length === 0) {
             router.post("/products", data, {
                 onSuccess: () => {
-                    toast.success("Product added successfully!");
+                    // toast.success("Product added successfully!");
                     setShowAdd(false);
                     reset();
-                    window.location.reload(); // Reload the page to show changes
-
+                    window.location.reload();
                 },
                 onError: (error) => {
                     toast.error("Failed to add product.");
                     setErrors(error);
-                }
+                },
             });
         } else {
             setErrors(validationErrors);

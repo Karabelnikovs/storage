@@ -71,9 +71,9 @@ export default function Authenticated({ user, header, children }) {
                                         Manage Data
                                     </NavLink>
                                     <NavLink
-                                        href={route("data.management")}
+                                        href={route("orders.management")}
                                         active={route().current(
-                                            "data.management"
+                                            "orders.management"
                                         )}
                                     >
                                         Manage Orders
@@ -209,6 +209,12 @@ export default function Authenticated({ user, header, children }) {
                                 active={route().current("data.management")}
                             >
                                 Manage Data
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("orders.management")}
+                                active={route().current("orders.management")}
+                            >
+                                Manage Orders
                             </ResponsiveNavLink>
                         </div>
 

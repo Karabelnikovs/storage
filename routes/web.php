@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\DataManagementController;
+use App\Http\Controllers\OredersController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -50,6 +51,11 @@ Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('pro
 
     Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
      Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
+
+
+
+    Route::get('/orders-management', [OredersController::class, 'index'])->name('orders.management');
+    Route::post('/orders', [OredersController::class, 'store'])->name('orders.store');
 });
 
 require __DIR__.'/auth.php';

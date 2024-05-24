@@ -13,7 +13,8 @@ class ProductController extends Controller
     public function index()
     {
         return Inertia::render('AddProduct', [
-            'products' => Products::paginate(3)
+            'products' => Products::paginate(3),
+            
         ]);
     }
     public function store(Request $request)
