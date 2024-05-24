@@ -1,23 +1,27 @@
 import React from "react";
-import { Head, Link, useForm, router, usePage } from "@inertiajs/react";
+import { useForm, router, usePage } from "@inertiajs/react";
+import toast from "react-hot-toast";
 
-const EditProductModal = ({ setShowEdit, auth, product }) => {
-    // todo kads sito safixo ludzu neiet edit, mos prpblema controlleri es nez
-
-    const { flash, errors } = usePage().props;
+const EditProductModal = ({ setShowEdit, product }) => {
+    const { errors } = usePage().props;
 
     const { data, setData, reset } = useForm({
-        title: product.name,
+        name: product.name,
         description: product.description,
         quantity: product.quantity,
     });
+
     const saveProduct = (e) => {
         e.preventDefault();
         router.patch(`/products/edit/${product.id}`, data, {
-            onSuccess: setShowEdit(false),
-            onSuccess: reset(),
+            onSuccess: () => {
+                toast.success("Product updated successfully!");
+                setShowEdit(false);
+                reset();
+            },
         });
     };
+
     return (
         <>
             <section className="w-full fixed left-0 top-0 flex flex-col justify-center items-center h-screen">
@@ -41,18 +45,18 @@ const EditProductModal = ({ setShowEdit, auth, product }) => {
                                             <div className="relative">
                                                 <input
                                                     autoComplete="off"
-                                                    id="title"
-                                                    name="title"
+                                                    id="name"
+                                                    name="name"
                                                     type="text"
-                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none "
-                                                    placeholder="Title"
+                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
+                                                    placeholder="Name"
                                                     onChange={(e) =>
                                                         setData(
-                                                            "title",
+                                                            "name",
                                                             e.target.value
                                                         )
                                                     }
-                                                    value={data.title}
+                                                    value={data.name}
                                                 />
                                                 <label
                                                     htmlFor="name"
@@ -72,7 +76,7 @@ const EditProductModal = ({ setShowEdit, auth, product }) => {
                                                     id="description"
                                                     name="description"
                                                     type="text"
-                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none "
+                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                     placeholder="Description"
                                                     onChange={(e) =>
                                                         setData(
@@ -101,7 +105,7 @@ const EditProductModal = ({ setShowEdit, auth, product }) => {
                                                     name="quantity"
                                                     type="number"
                                                     min={1}
-                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none "
+                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                     placeholder="Quantity"
                                                     onChange={(e) =>
                                                         setData(
