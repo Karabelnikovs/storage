@@ -15,7 +15,7 @@ const EditProductModal = ({ setShowEdit, product }) => {
         e.preventDefault();
         router.patch(`/products/edit/${product.id}`, data, {
             onSuccess: () => {
-                toast.success("Product updated successfully!");
+                // toast.success("Product updated successfully!");
                 setShowEdit(false);
                 reset();
             },
