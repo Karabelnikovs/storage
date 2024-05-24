@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Products;
+use App\Models\History; // Pievieno History modeli
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
@@ -20,13 +21,16 @@ class DataManagementController extends Controller
 
     public function destroy($id)
     {
-            $product = Products::findOrFail($id);
-            $product->delete();
+        $product = Products::findOrFail($id);
 
-            return back()->with('message', 'Deleted succesfully!');
-         
-    }
-    
+        // Izveidojiet vēstures ierakstu pirms produkta izdzēšanas
+        $history = new History();
+        $history->action = 'Product Deleted';
+        $history->description = 'Product ' . $product->name . ' Deleted.';
+        $history->save();
+
+        $product->delete();
+
+        return back()->with('message', 'Deleted successfully!');
+    }    
 }
-
-
