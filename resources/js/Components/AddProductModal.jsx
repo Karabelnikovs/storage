@@ -1,18 +1,44 @@
-import React from "react";
-import { Head, Link, useForm, router } from "@inertiajs/react";
+import React, { useState } from "react";
+import { useForm, router } from "@inertiajs/react";
+import toast from "react-hot-toast";
 
-const AddProductModal = ({ setShowAdd, auth, products }) => {
+const AddProductModal = ({ setShowAdd }) => {
     const { data, setData, reset } = useForm({
         name: "",
         description: "",
         quantity: "",
     });
+
+    const [errors, setErrors] = useState({});
+
+    const validate = () => {
+        const newErrors = {};
+        if (!data.name) newErrors.name = "Name is required.";
+        if (!data.description) newErrors.description = "Description is required.";
+        if (!data.quantity || data.quantity < 1) newErrors.quantity = "Quantity must be at least 1.";
+        return newErrors;
+    };
+
     const saveProduct = (e) => {
         e.preventDefault();
-        router.post("/products", data, {
-            onSuccess: setShowAdd(false),
-        });
+        const validationErrors = validate();
+        if (Object.keys(validationErrors).length === 0) {
+            router.post("/products", data, {
+                onSuccess: () => {
+                    toast.success("Product added successfully!");
+                    setShowAdd(false);
+                    reset();
+                },
+                onError: (error) => {
+                    toast.error("Failed to add product.");
+                    setErrors(error);
+                }
+            });
+        } else {
+            setErrors(validationErrors);
+        }
     };
+
     return (
         <>
             <section className="w-full fixed left-0 top-0 flex flex-col justify-center items-center h-screen">
@@ -39,7 +65,7 @@ const AddProductModal = ({ setShowAdd, auth, products }) => {
                                                     id="name"
                                                     name="name"
                                                     type="text"
-                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-0 "
+                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                     placeholder="Name"
                                                     onChange={(e) =>
                                                         setData(
@@ -55,6 +81,11 @@ const AddProductModal = ({ setShowAdd, auth, products }) => {
                                                 >
                                                     Name
                                                 </label>
+                                                {errors.name && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.name}
+                                                    </p>
+                                                )}
                                             </div>
                                             <div className="relative">
                                                 <input
@@ -62,7 +93,7 @@ const AddProductModal = ({ setShowAdd, auth, products }) => {
                                                     id="description"
                                                     name="description"
                                                     type="text"
-                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none "
+                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                     placeholder="Description"
                                                     onChange={(e) =>
                                                         setData(
@@ -78,6 +109,11 @@ const AddProductModal = ({ setShowAdd, auth, products }) => {
                                                 >
                                                     Description
                                                 </label>
+                                                {errors.description && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.description}
+                                                    </p>
+                                                )}
                                             </div>
                                             <div className="relative">
                                                 <input
@@ -86,7 +122,7 @@ const AddProductModal = ({ setShowAdd, auth, products }) => {
                                                     name="quantity"
                                                     type="number"
                                                     min={1}
-                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none "
+                                                    className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                     placeholder="Quantity"
                                                     onChange={(e) =>
                                                         setData(
@@ -102,6 +138,11 @@ const AddProductModal = ({ setShowAdd, auth, products }) => {
                                                 >
                                                     Quantity
                                                 </label>
+                                                {errors.quantity && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.quantity}
+                                                    </p>
+                                                )}
                                             </div>
                                             <div className="relative">
                                                 <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-green-100 to-lime-200 py-3 px-6 font-dm text-base font-medium text-gray-440 shadow-xl shadow-lime-300/45 transition-transform duration-200 ease-in-out hover:scale-[1.02]">
