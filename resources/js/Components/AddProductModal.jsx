@@ -28,6 +28,8 @@ const AddProductModal = ({ setShowAdd }) => {
                     toast.success("Product added successfully!");
                     setShowAdd(false);
                     reset();
+                    window.location.reload(); // Reload the page to show changes
+
                 },
                 onError: (error) => {
                     toast.error("Failed to add product.");
