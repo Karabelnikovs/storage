@@ -48,7 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
 
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index'); // Pievieno maršrutu ar HistoryController
-
 });
 
 require __DIR__.'/auth.php';

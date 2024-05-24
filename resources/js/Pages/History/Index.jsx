@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Index({ auth }) {
+export default function Index({ auth, history }) {
     const { user } = auth;
-    const [history, setHistory] = useState([]);
+
 
     useEffect(() => {
         fetchHistory();
     }, []);
+
 
     const fetchHistory = async () => {
         try {
