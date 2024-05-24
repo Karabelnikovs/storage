@@ -70,14 +70,6 @@ export default function Authenticated({ user, header, children }) {
                                     >
                                         Manage Data
                                     </NavLink>
-                                    <NavLink
-                                        href={route("data.management")}
-                                        active={route().current(
-                                            "data.management"
-                                        )}
-                                    >
-                                        Manage Orders
-                                    </NavLink>
                                 </div>
                             </div>
 
