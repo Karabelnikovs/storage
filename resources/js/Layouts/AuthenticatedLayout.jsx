@@ -70,6 +70,15 @@ export default function Authenticated({ user, header, children }) {
                                     >
                                         Manage Data
                                     </NavLink>
+
+                                    <NavLink
+                                        href={route("history.index")}
+                                        active={route().current(
+                                            "history.index"
+                                        )}
+                                    >
+                                        View Activity History
+                                    </NavLink>
                                 </div>
                             </div>
 
