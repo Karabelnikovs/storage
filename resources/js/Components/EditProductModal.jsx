@@ -18,6 +18,8 @@ const EditProductModal = ({ setShowEdit, product }) => {
                 toast.success("Product updated successfully!");
                 setShowEdit(false);
                 reset();
+                window.location.reload(); // Reload the page to show changes
+
             },
             onError: () => {
                 toast.error("Failed to update product.");
