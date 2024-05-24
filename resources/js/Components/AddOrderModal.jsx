@@ -7,7 +7,6 @@ const AddOrderModal = ({ setShowAdd, users, products }) => {
         items: [{ productName: "", quantity: "" }],
         user_id: users[0].id,
     });
-
     const [errors, setErrors] = useState({});
 
     const validate = () => {

@@ -59,15 +59,22 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
                                             className="w-48 h-48"
                                             key={order.id}
                                         >
-                                            <OrderCard
-                                                name={users[order.user_id].name}
-                                                status={order.status}
-                                                handleShowEdit={handleShowEdit}
-                                                order={order}
-                                                handleShowDelete={
-                                                    handleShowDelete
-                                                }
-                                            />
+                                            {users[order.user_id] && (
+                                                <OrderCard
+                                                    status={order.status}
+                                                    handleShowEdit={
+                                                        handleShowEdit
+                                                    }
+                                                    order={order}
+                                                    handleShowDelete={
+                                                        handleShowDelete
+                                                    }
+                                                    name={
+                                                        users[order.user_id]
+                                                            .name
+                                                    }
+                                                />
+                                            )}
                                         </div>
                                     ))}
                                 </div>
