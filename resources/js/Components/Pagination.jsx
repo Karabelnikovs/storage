@@ -18,19 +18,21 @@ const Pagination = ({ cards }) => {
                                     href={link.url}
                                     className={` ${
                                         link.active
-                                            ? "dark:bg-indigo-900"
-                                            : "dark:bg-gray-800"
-                                    } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700  dark:border-gray-700  dark:hover:bg-gray-700 dark:hover:text-white ${
-                                        i == 0 && "rounded-s-xl"
+                                            ? "bg-gradient-to-tr from-green-500 to-lime-400"
+                                            : "bg-gradient-to-bl from-green-200 to-lime-400"
+                                    } flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white hover:bg-gray-100 hover:text-gray-700  dark:border-gray-700 ${
+                                        i == 0 && "rounded-s-3xl "
                                     } ${
-                                        i == links.length - 1 && "rounded-e-xl"
+                                        i == links.length - 1 &&
+                                        "rounded-e-3xl "
                                     } ${
                                         i == 0 && currentPage == 1 && "hidden"
                                     } ${
                                         lastPage == currentPage &&
                                         i == links.length - 1 &&
                                         "hidden"
-                                    }`}
+                                    }
+                                    `}
                                 >
                                     <div
                                         dangerouslySetInnerHTML={{
