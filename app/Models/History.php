@@ -10,7 +10,7 @@ class History extends Model
     use HasFactory;
 
     // Šeit jūs varat definēt atbilstošo datubāzes tabulu, ja tā ir atšķirīga no noklusētās
-    protected $table = 'history';
+    protected $table = 'histories';
     protected $fillable = [
         'user_id'
     ];
