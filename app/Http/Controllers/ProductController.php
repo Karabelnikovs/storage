@@ -31,7 +31,7 @@ class ProductController extends Controller
         $history = new History();
         $history->action = 'Product Added';
         $history->description = 'Product ' . $product->name . ' added to the database.';
-        $history->save();
+        $history->save();//TES
 
         return back()->with('message', 'Product added successfully!');
     }
