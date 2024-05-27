@@ -79,9 +79,9 @@ export default function Authenticated({ user, header, children }) {
                                         Manage Orders
                                     </NavLink>
                                     <NavLink
-                                        href={route("data.management")}
+                                        href={route("history.index")}
                                         active={route().current(
-                                            "data.management"
+                                            "history.index"
                                         )}
                                     >
                                         View Activity History
