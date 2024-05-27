@@ -5,19 +5,40 @@ import toast from "react-hot-toast";
 const DeleteProductModal = ({ setShowDelete, product, auth }) => {
     const { flash, errors } = usePage().props;
 
-    const handleDelete = async (productId) => {
-        router.delete(`/products/${productId}`, data, {
-            onSuccess: () => {
-                toast.success("Product deleted successfully!");
-                setShowDelete(false);
-                reset();
-                window.location.reload();
+    const handleDelete = (productId) => {
+        router.post(
+            `/products/${productId}`,
+            {
+                _method: "DELETE",
             },
-            onError: () => {
-                toast.error("Failed to add order.");
-            },
-        });
+            {
+                onSuccess: () => {
+                    setShowDelete(false);
+                    toast.success("Product deleted successfully!");
+                    reset();
+                    window.location.reload();
+                },
+
+                onError: () => {
+                    toast.error("Failed to add order.");
+                },
+            }
+        );
     };
+
+    // const handleDelete = async (productId) => {
+    //     router.delete(`/products/${productId}`, {
+    //         onSuccess: () => {
+    //             toast.success("Product deleted successfully!");
+    //             setShowDelete(false);
+    //             reset();
+    //             window.location.reload();
+    //         },
+    //         onError: () => {
+    //             toast.error("Failed to add order.");
+    //         },
+    //     });
+    // };
     // useEffect(() => {
     //     flash.message && toast.success(flash.message);
     // }, [flash]);
