@@ -70,10 +70,7 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
                                                     handleShowDelete={
                                                         handleShowDelete
                                                     }
-                                                    name={
-                                                        users[order.user_id]
-                                                            .name
-                                                    }
+                                                    name={users[order.user_id]}
                                                 />
                                             )}
                                         </div>

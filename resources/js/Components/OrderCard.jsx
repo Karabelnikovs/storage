@@ -4,11 +4,11 @@ import { RiEditCircleLine } from "react-icons/ri";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 
 const OrderCard = ({
-    name,
     status,
     handleShowEdit,
     order,
     handleShowDelete,
+    name,
 }) => {
     return (
         <>
@@ -29,7 +29,7 @@ const OrderCard = ({
                     <GoInfo size={61} />
                 </div>
                 <div className="group-hover:pb-10 transition-all duration-500 delay-200">
-                    <h1 className="font-semibold text-gray-700">{name}</h1>
+                    <h1 className="font-semibold text-gray-700">{name.name}</h1>
                     {status ? (
                         <p className="text-gray-500 text-sm">Delivered</p>
                     ) : (
