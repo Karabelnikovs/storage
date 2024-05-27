@@ -1,16 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, router, usePage } from "@inertiajs/react";
 import toast from "react-hot-toast";
 
-const DeleteProductModal = ({ setShowDelete, auth, product }) => {
+const DeleteProductModal = ({ setShowDelete, product, auth }) => {
     const { flash, errors } = usePage().props;
+
     const handleDelete = async (productId) => {
-        try {
-            await axios.delete(`/products/${productId}`);
-            // setProducts(products.filter((product) => product.id !== productId));
-        } catch (error) {
-            console.error("There was an error deleting the product!", error);
-        }
+        router.delete(`/products/${productId}`, data, {
+            onSuccess: () => {
+                toast.success("Product deleted successfully!");
+                setShowDelete(false);
+                reset();
+                window.location.reload();
+            },
+            onError: () => {
+                toast.error("Failed to add order.");
+            },
+        });
     };
     // useEffect(() => {
     //     flash.message && toast.success(flash.message);

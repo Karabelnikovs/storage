@@ -92,8 +92,8 @@ const DataManage = ({ products: initialProducts, auth }) => {
                                 )}
                                 {showDelete && deleteProduct && (
                                     <DeleteProductModal
-                                        product={deleteProduct}
                                         setShowDelete={setShowDelete}
+                                        product={deleteProduct}
                                     />
                                 )}
                             </div>
