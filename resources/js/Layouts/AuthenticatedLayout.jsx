@@ -42,7 +42,7 @@ export default function Authenticated({ user, header, children }) {
                                     >
                                         Add Product
                                     </NavLink>
-                                    {isAdmin ? (
+                                    {isAdmin && (
                                         <NavLink
                                             href={route("user.management")}
                                             active={route().current(
@@ -51,17 +51,7 @@ export default function Authenticated({ user, header, children }) {
                                         >
                                             Manage Users
                                         </NavLink>
-                                    ) : (
-                                        // Ja lietotājam nav admin lomas, pogu aizstājam ar "USERS"
-                                        <NavLink
-                                            href={route("user.management")}
-                                            active={route().current(
-                                                "user.management"
-                                            )}
-                                        >
-                                            Users
-                                        </NavLink>
-                                    )}
+                                    ) }
                                     <NavLink
                                         href={route("data.management")}
                                         active={route().current(
@@ -81,7 +71,7 @@ export default function Authenticated({ user, header, children }) {
                                     <NavLink
                                         href={route("history.index")}
                                         active={route().current(
-                                            "history.index"
+                                            "data.management"
                                         )}
                                     >
                                         View Activity History
