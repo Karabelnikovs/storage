@@ -74,7 +74,7 @@ export default function Authenticated({ user, header, children }) {
                                             "history.index"
                                         )}
                                     >
-                                        View Activity History
+                                        History
                                     </NavLink>
                                 </div>
                             </div>
@@ -213,6 +213,12 @@ export default function Authenticated({ user, header, children }) {
                                 active={route().current("orders.management")}
                             >
                                 Manage Orders
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("history.index")}
+                                active={route().current("history.index")}
+                            >
+                                History
                             </ResponsiveNavLink>
                         </div>
 
