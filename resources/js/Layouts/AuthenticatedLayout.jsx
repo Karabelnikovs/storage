@@ -51,7 +51,7 @@ export default function Authenticated({ user, header, children }) {
                                         >
                                             Manage Users
                                         </NavLink>
-                                    ) }
+                                    )}
                                     <NavLink
                                         href={route("data.management")}
                                         active={route().current(
@@ -71,7 +71,7 @@ export default function Authenticated({ user, header, children }) {
                                     <NavLink
                                         href={route("history.index")}
                                         active={route().current(
-                                            "data.management"
+                                            "history.index"
                                         )}
                                     >
                                         View Activity History
