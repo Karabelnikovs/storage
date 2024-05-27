@@ -61,6 +61,17 @@ export default function Index({ auth, history: initialHistory }) {
                                     <option value="Product Deleted">
                                         Product Deleted
                                     </option>
+                                    <option value="Login">
+                                        Login
+                                    </option>
+                                    <option value="Update settings">
+                                        Update settings
+                                    </option>
+                                    <option value="Logout">
+                                    Logout
+                                    </option>
+         
+                                    
                                 </select>
                             </div>
                             <ul>
