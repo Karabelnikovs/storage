@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 const DeleteProductModal = ({ setShowDelete, product, auth }) => {
     const { flash, errors } = usePage().props;
-
+    console.log(product);
     const handleDelete = (productId) => {
         router.post(
             `/products/${productId}`,

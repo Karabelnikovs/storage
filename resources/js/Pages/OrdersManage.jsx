@@ -10,6 +10,7 @@ import DeleteProductModal from "@/Components/DeleteProductModal";
 import toast from "react-hot-toast";
 import ProductCard from "@/Components/ProductCard";
 import OrderCard from "@/Components/OrderCard";
+import Pagination from "@/Components/Pagination";
 
 const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
     const [showAdd, setShowAdd] = useState(false);
@@ -104,6 +105,9 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
                                         setShowDelete={setShowDelete}
                                     />
                                 )}
+                            </div>
+                            <div className="mb-8 flex justify-center items-center">
+                                <Pagination cards={initialOrders}></Pagination>
                             </div>
                         </div>
                     </div>

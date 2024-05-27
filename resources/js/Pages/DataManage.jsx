@@ -9,6 +9,7 @@ import EditProductModal from "@/Components/EditProductModal";
 import DeleteProductModal from "@/Components/DeleteProductModal";
 import toast from "react-hot-toast";
 import ProductCard from "@/Components/ProductCard";
+import Pagination from "@/Components/Pagination";
 
 const DataManage = ({ products: initialProducts, auth }) => {
     const [showAdd, setShowAdd] = useState(false);
@@ -96,6 +97,11 @@ const DataManage = ({ products: initialProducts, auth }) => {
                                         product={deleteProduct}
                                     />
                                 )}
+                            </div>
+                            <div className="mb-8 flex justify-center items-center">
+                                <Pagination
+                                    cards={initialProducts}
+                                ></Pagination>
                             </div>
                         </div>
                     </div>

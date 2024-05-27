@@ -3,6 +3,7 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import AddUserCard from "@/Components/AddUserCard";
 import UserCard from "@/Components/UserCard";
 import { Head, useForm } from "@inertiajs/react";
+import Pagination from "@/Components/Pagination";
 
 export default function UserManagement({ auth, users }) {
     const { user } = auth;
@@ -57,7 +58,7 @@ export default function UserManagement({ auth, users }) {
                                 All Users:
                             </h2>
                             <div className="grid sm:grid-cols-1 lg:grid-cols-4 md:grid-cols-2 gap-10  mt-6">
-                                {users.map((user) => (
+                                {users.data.map((user) => (
                                     <div className="w-48 h-48">
                                         <UserCard
                                             name={user.name}
@@ -68,11 +69,14 @@ export default function UserManagement({ auth, users }) {
                                 ))}
 
                                 {role === "admin" && (
-                                    <div className="w-48 h-96">
+                                    <div className="w-48 h-48">
                                         <AddUserCard />
                                     </div>
                                 )}
                             </div>
+                        </div>
+                        <div className="mb-8 flex justify-center items-center">
+                            <Pagination cards={users}></Pagination>
                         </div>
                     </div>
                 </div>
