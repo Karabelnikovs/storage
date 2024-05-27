@@ -25,13 +25,13 @@ const Pagination = ({ cards }) => {
                                     } ${
                                         i == links.length - 1 &&
                                         "rounded-e-3xl "
-                                    } ${
-                                        i == 0 && currentPage == 1 && "hidden"
-                                    } ${
-                                        lastPage == currentPage &&
-                                        i == links.length - 1 &&
-                                        "hidden"
-                                    }
+                                    } 
+                                    ${i == 0 && currentPage == 1 && "hidden"}
+                                     ${
+                                         lastPage == currentPage &&
+                                         i == links.length - 1 &&
+                                         "hidden"
+                                     }
                                     `}
                                 >
                                     <div
