@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\History;
+
 
 class ProfileController extends Controller
 {
@@ -37,6 +39,12 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+        $history = new History();
+        $history->user_id = Auth::id(); // Get the authenticated user's ID
+        $history->action = 'Update settings';
+        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> Update settings ' . $request->name;
+        $history->save();
+
         return Redirect::route('profile.edit');
     }
 
@@ -52,6 +60,7 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
+
 
         $user->delete();
 
