@@ -1,11 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Products;
 use App\Models\History;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -13,7 +13,6 @@ class ProductController extends Controller
     {
         return Inertia::render('AddProduct', [
             'products' => Products::paginate(3),
-            
         ]);
     }
 
@@ -27,11 +26,12 @@ class ProductController extends Controller
 
         $product = Products::create($data);
 
-        // Izveidojiet vēstures ierakstu
+        // Create history entry
         $history = new History();
+        $history->user_id = Auth::id(); // Get the authenticated user's ID
         $history->action = 'Product Added';
-        $history->description = 'Product ' . $product->name . ' added to the database.';
-        $history->save();//TES
+        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> added Product ' . $product->name . ' to the database.';
+        $history->save();
 
         return back()->with('message', 'Product added successfully!');
     }
@@ -47,10 +47,11 @@ class ProductController extends Controller
 
         $product->update($data);
 
-        // Izveidojiet vēstures ierakstu
+        // Create history entry
         $history = new History();
+        $history->user_id = Auth::id(); // Get the authenticated user's ID
         $history->action = 'Product Updated';
-        $history->description = 'Product ' . $product->name . ' updated in the database.';
+        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> updated Product ' . $product->name . ' in the database.';
         $history->save();
 
         return redirect(route("data.management"))->with('message', 'Product updated successfully!');

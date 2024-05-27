@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-export default function Index({ auth, history }) {
+export default function Index({ auth ,history}) {
     const { user } = auth;
+    const [filter, setFilter] = useState("All");
 
     useEffect(() => {
         fetchHistory();
@@ -19,6 +20,15 @@ export default function Index({ auth, history }) {
         }
     };
 
+    const handleFilterChange = (event) => {
+        setFilter(event.target.value);
+    };
+
+    const filteredHistory = history.filter(entry => {
+        if (filter === "All") return true;
+        return entry.action === filter;
+    });
+
     return (
         <AuthenticatedLayout user={user}>
             <Head title="History" />
@@ -29,16 +39,8 @@ export default function Index({ auth, history }) {
                             <h3 className="text-2xl font-bold mb-4">History</h3>
                             <ul>
                                 {history.map((entry) => (
-                                    <li
-                                        key={entry.id}
-                                        className={`text-lg mb-2 ${getColorClass(
-                                            entry.action
-                                        )}`}
-                                    >
-                                        <span className="font-semibold">
-                                            {entry.action}:
-                                        </span>{" "}
-                                        {entry.description}
+                                    <li key={entry.id} className={`text-lg mb-2 ${getColorClass(entry.action)}`}>
+                                        <span className="font-semibold">{entry.action}:</span> {entry.description}
                                     </li>
                                 ))}
                             </ul>
@@ -50,16 +52,16 @@ export default function Index({ auth, history }) {
     );
 }
 
-// Funkcija, kas atgriež klasi atkarībā no darbības
+// Function to get color class based on action
 const getColorClass = (action) => {
     switch (action) {
-        case "Product Added":
-            return "text-green-500"; // Zaļa krāsa
-        case "Product Updated":
-            return "text-yellow-500"; // Dzeltens
-        case "Product Delited":
-            return "text-red-600"; // Sarkans
+        case 'Product Added':
+            return 'text-green-500'; // Zaļa krāsa
+        case 'Product Updated':
+            return 'text-yellow-500'; // Dzeltens
+        case 'Product Delited':
+            return 'text-red-600'; // Sarkans
         default:
-            return "text-Neutral-950"; // Sarkans
+            return 'text-Neutral-950'; // Sarkans
     }
 };

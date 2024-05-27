@@ -11,6 +11,8 @@ class History extends Model
 
     // Šeit jūs varat definēt atbilstošo datubāzes tabulu, ja tā ir atšķirīga no noklusētās
     protected $table = 'history';
-
+    protected $fillable = [
+        'user_id'
+    ];
     // Šeit jūs varat definēt citus modeļa iestatījumus un metodes
 }
