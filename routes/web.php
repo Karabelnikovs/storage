@@ -8,6 +8,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\DataManagementController;
 use App\Http\Controllers\OredersController;
+use App\Http\Controllers\HistoryController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -48,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
     Route::get('/orders-management', [OredersController::class, 'index'])->name('orders.management');
     Route::post('/orders', [OredersController::class, 'store'])->name('orders.store');
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index'); // Pievieno maršrutu ar HistoryController
 });
 
 require __DIR__.'/auth.php';
