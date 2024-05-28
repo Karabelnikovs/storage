@@ -30,7 +30,8 @@ class DataManagementController extends Controller
         $history = new History();
         $history->user_id = Auth::id(); 
         $history->action = 'Product Deleted';
-        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> Product ' . $product->name . ' Deleted.';
+        $formattedCreatedAt = Carbon::parse($history->created_at)->format('Y-m-d H:i:s');
+        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> Product ' . $product->name . ' Deleted database '.$formattedCreatedAt;
         $history->save();
 
         $product->delete();
