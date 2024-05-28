@@ -76,6 +76,12 @@ export default function Authenticated({ user, header, children }) {
                                     >
                                         History
                                     </NavLink>
+                                    <NavLink
+                                        href={route("shelfs.add")}
+                                        active={route().current("shelfs.add")}
+                                    >
+                                        Add Shelf
+                                    </NavLink>
                                 </div>
                             </div>
 
@@ -219,6 +225,12 @@ export default function Authenticated({ user, header, children }) {
                                 active={route().current("history.index")}
                             >
                                 History
+                            </ResponsiveNavLink>
+                            <ResponsiveNavLink
+                                href={route("shelfs.add")}
+                                active={route().current("shelfs.add")}
+                            >
+                                Add Shelf
                             </ResponsiveNavLink>
                         </div>
 
