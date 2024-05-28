@@ -26,22 +26,6 @@ const DeleteProductModal = ({ setShowDelete, product, auth }) => {
         );
     };
 
-    // const handleDelete = async (productId) => {
-    //     router.delete(`/products/${productId}`, {
-    //         onSuccess: () => {
-    //             toast.success("Product deleted successfully!");
-    //             setShowDelete(false);
-    //             reset();
-    //             window.location.reload();
-    //         },
-    //         onError: () => {
-    //             toast.error("Failed to add order.");
-    //         },
-    //     });
-    // };
-    // useEffect(() => {
-    //     flash.message && toast.success(flash.message);
-    // }, [flash]);
     return (
         <>
             <section className="w-full fixed left-0 top-0 flex flex-col justify-center items-center h-screen">

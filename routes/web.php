@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShelfController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -49,7 +50,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
     Route::get('/orders-management', [OredersController::class, 'index'])->name('orders.management');
     Route::post('/orders', [OredersController::class, 'store'])->name('orders.store');
-    Route::get('/history', [HistoryController::class, 'index'])->name('history.index'); // Pievieno maršrutu ar HistoryController
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
+    Route::get('/shelfs-add', [ShelfController::class, 'addShelf'])->name('shelfs.add');
+    Route::post('/shelfs', [ShelfController::class, 'store'])->name('shelfs.store');
 });
 
 require __DIR__.'/auth.php';

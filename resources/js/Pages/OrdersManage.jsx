@@ -1,14 +1,11 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import UserCard from "@/Components/UserCard";
 import { Head, usePage } from "@inertiajs/react";
 import AddProductCard from "@/Components/AddProductCard";
 import AddOrderModal from "@/Components/AddOrderModal";
 import EditProductModal from "@/Components/EditProductModal";
 import DeleteProductModal from "@/Components/DeleteProductModal";
 import toast from "react-hot-toast";
-import ProductCard from "@/Components/ProductCard";
 import OrderCard from "@/Components/OrderCard";
 import Pagination from "@/Components/Pagination";
 
@@ -16,7 +13,7 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
-    const [orders, setProducts] = useState(initialOrders.data);
+    const [orders, setOrders] = useState(initialOrders.data);
     const [editProduct, setEditProduct] = useState(null);
     const [deleteProduct, setDeleteProduct] = useState(false);
     const { flash, errors } = usePage().props;
