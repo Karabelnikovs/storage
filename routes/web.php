@@ -31,13 +31,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/products', [ProductController::class, 'index'])->name('products.index');
     Route::post('/products', [ProductController::class, 'store'])->name('products.store');
 
+
+
     Route::get('/user-management', [UserManagementController::class, 'index'])->name('user.management');
     Route::get('/user-management/create', [UserManagementController::class, 'create'])->name('user.management.create');
     Route::post('/user-management', [UserManagementController::class, 'store'])->name('user.management.store');
     Route::get('/user-management/{user}/edit', [UserManagementController::class, 'edit'])->name('user.management.edit');
     Route::put('/user-management/{user}', [UserManagementController::class, 'update'])->name('user.management.update');
-    Route::post('/user-management/{user}/update-role', [UserManagementController::class, 'updateRole'])->name('user.management.update-role');
-    Route::post('/user-management/create', [UserManagementController::class, 'store'])->name('user.management.create');
+    Route::patch('/user-management/{user}/role', [UserManagementController::class, 'updateRole'])->name('user.management.update-role');
+    Route::delete('/user-management/{user}', [UserManagementController::class, 'destroy'])->name('user.management.destroy');
+    Route::get('/users', [UserManagementController::class, 'index'])->name('users.index');
+
+    
 
     Route::post('/products/{id}', 'App\Http\Controllers\ProductController@update');
     Route::put('/products/{id}', 'App\Http\Controllers\ProductController@update');
@@ -49,7 +54,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/data-management', [DataManagementController::class, 'index'])->name('data.management');
     Route::get('/orders-management', [OredersController::class, 'index'])->name('orders.management');
     Route::post('/orders', [OredersController::class, 'store'])->name('orders.store');
-    Route::get('/history', [HistoryController::class, 'index'])->name('history.index'); // Pievieno maršrutu ar HistoryController
+    Route::get('/history', [HistoryController::class, 'index'])->name('history.index'); 
+    Route::post('/user/management/add', [UserController::class, 'store'])->name('user.management.add');
+
 });
 
 require __DIR__.'/auth.php';
