@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Products;
 use App\Models\History;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -30,7 +31,8 @@ class ProductController extends Controller
         $history = new History();
         $history->user_id = Auth::id(); // Get the authenticated user's ID
         $history->action = 'Product Added';
-        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> added Product ' . $product->name . ' to the database.';
+        $formattedCreatedAt = Carbon::parse($history->created_at)->format('Y-m-d H:i:s');
+        $history->description =  Auth::user()->name . ' added Product ' . $product->name . ' to the database '.$formattedCreatedAt;
         $history->save();
 
         return back()->with('message', 'Product added successfully!');
@@ -51,7 +53,9 @@ class ProductController extends Controller
         $history = new History();
         $history->user_id = Auth::id(); // Get the authenticated user's ID
         $history->action = 'Product Updated';
-        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> updated Product ' . $product->name . ' in the database.';
+        $formattedCreatedAt = Carbon::parse($history->created_at)->format('Y-m-d H:i:s');
+        $history->description = '<span style="linear-gradient(90deg, #2F2F2F 0%, #A7A7A7 100%);">' . Auth::user()->name . '</span> updated Product ' . $product->name . ' in the database '.$formattedCreatedAt;
+        $history->save();
         $history->save();
 
         return redirect(route("data.management"))->with('message', 'Product updated successfully!');
