@@ -92,23 +92,27 @@ export default function Index({ auth, history: initialHistory }) {
                                         const { username, desc, time } = parseDescription(entry.description);
                                         return (
                                             <tr key={entry.id} className={getColorClass(entry.action)}>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <p className="bg-gradient-to-r from-gray-800 to-gray-500 inline-block text-transparent bg-clip-text ">
                                                     {username}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                </p>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                                <p className="bg-gradient-to-r from-red-800 to-red-500 inline-block text-transparent bg-clip-text">
                                                     {entry.action}
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                                    <span
-                                                        dangerouslySetInnerHTML={{
-                                                            __html: desc,
-                                                        }}
-                                                    ></span>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                </p>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                                <p className="bg-gradient-to-r from-gray-800 to-gray-500 inline-block text-transparent bg-clip-text text-green-500">
+                                                    <span dangerouslySetInnerHTML={{ __html: desc }}></span>
+                                                </p>
+                                            </td>
+                                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                                <p className="bg-gradient-to-r from-gray-800 to-gray-500 inline-block text-transparent bg-clip-text text-yellow-500">
                                                     {time}
-                                                </td>
-                                            </tr>
+                                                </p>
+                                            </td>
+                                        </tr>
                                         );
                                     })}
                                 </tbody>
