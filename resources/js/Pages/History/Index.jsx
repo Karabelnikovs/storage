@@ -6,6 +6,7 @@ import Pagination from "@/Components/Pagination";
 export default function Index({ auth, history: initialHistory }) {
     const { user } = auth;
     const [filter, setFilter] = useState("All");
+    const [history, setHistory] = useState(initialHistory.data);
 
     useEffect(() => {
         fetchHistory();
@@ -25,10 +26,19 @@ export default function Index({ auth, history: initialHistory }) {
         setFilter(event.target.value);
     };
 
-    const filteredHistory = initialHistory.data.filter((entry) => {
+    const filteredHistory = history.filter((entry) => {
         if (filter === "All") return true;
         return entry.action === filter;
     });
+
+    const parseDescription = (description) => {
+        const [username, ...descParts] = description.split(" ");
+        const desc = descParts.join(" ");
+        const timeMatch = desc.match(/database (.+)$/);
+        const time = timeMatch ? timeMatch[1] : "";
+        const cleanedDesc = desc.replace(/database .+$/, "").trim();
+        return { username, desc: cleanedDesc, time };
+    };
 
     return (
         <AuthenticatedLayout user={user}>
@@ -52,47 +62,57 @@ export default function Index({ auth, history: initialHistory }) {
                                     className="p-2 border rounded"
                                 >
                                     <option value="All">All</option>
-                                    <option value="Product Added">
-                                        Product Added
-                                    </option>
-                                    <option value="Product Updated">
-                                        Product Updated
-                                    </option>
-                                    <option value="Product Deleted">
-                                        Product Deleted
-                                    </option>
-                                    <option value="Login">
-                                        Login
-                                    </option>
-                                    <option value="Update settings">
-                                        Update settings
-                                    </option>
-                                    <option value="Logout">
-                                    Logout
-                                    </option>
-         
-                                    
+                                    <option value="Product Added">Product Added</option>
+                                    <option value="Product Updated">Product Updated</option>
+                                    <option value="Product Deleted">Product Deleted</option>
+                                    <option value="Login">Login</option>
+                                    <option value="Update settings">Update settings</option>
+                                    <option value="Logout">Logout</option>
                                 </select>
                             </div>
-                            <ul>
-                                {filteredHistory.map((entry) => (
-                                    <li
-                                        key={entry.id}
-                                        className={`text-lg mb-2 ${getColorClass(
-                                            entry.action
-                                        )}`}
-                                    >
-                                        <span className="font-semibold">
-                                            {entry.action}:
-                                        </span>
-                                        <span
-                                            dangerouslySetInnerHTML={{
-                                                __html: entry.description,
-                                            }}
-                                        ></span>
-                                    </li>
-                                ))}
-                            </ul>
+                            <table className="min-w-full divide-y divide-gray-200">
+                                <thead className="bg-gray-50">
+                                    <tr>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Username
+                                        </th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Action
+                                        </th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Description
+                                        </th>
+                                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Time
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody className="bg-white divide-y divide-gray-200">
+                                    {filteredHistory.map((entry) => {
+                                        const { username, desc, time } = parseDescription(entry.description);
+                                        return (
+                                            <tr key={entry.id} className={getColorClass(entry.action)}>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {username}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                                    {entry.action}
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    <span
+                                                        dangerouslySetInnerHTML={{
+                                                            __html: desc,
+                                                        }}
+                                                    ></span>
+                                                </td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                                    {time}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
                         </div>
                         <div className="mb-8 flex justify-center items-center">
                             <Pagination cards={initialHistory}></Pagination>
@@ -108,12 +128,12 @@ export default function Index({ auth, history: initialHistory }) {
 const getColorClass = (action) => {
     switch (action) {
         case "Product Added":
-            return "text-green-500"; // Green color
+            return "bg-green-100"; // Light green background
         case "Product Updated":
-            return "text-yellow-500"; // Yellow color
+            return "bg-yellow-100"; // Light yellow background
         case "Product Deleted":
-            return "text-red-700"; // Red color
+            return "bg-red-100"; // Light red background
         default:
-            return "text-neutral-950"; // Neutral color
+            return "bg-neutral-100"; // Light neutral background
     }
 };
