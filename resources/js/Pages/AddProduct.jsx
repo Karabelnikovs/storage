@@ -1,11 +1,8 @@
 import React from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { useEffect } from "react";
-import InputError from "@/Components/InputError";
-import InputLabel from "@/Components/InputLabel";
-import PrimaryButton from "@/Components/PrimaryButton";
-import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm, router, usePage } from "@inertiajs/react";
+import toast from "react-hot-toast";
 
 const AddProduct = ({ auth, products, shelfs }) => {
     const { flash, errors } = usePage().props;
@@ -21,7 +18,11 @@ const AddProduct = ({ auth, products, shelfs }) => {
             onSuccess: reset(),
         });
     };
-
+    useEffect(() => {
+        if (flash && flash.message) {
+            toast.success(flash.message);
+        }
+    }, [flash]);
     console.log(products);
     return (
         <>
