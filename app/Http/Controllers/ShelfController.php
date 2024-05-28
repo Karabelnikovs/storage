@@ -18,6 +18,7 @@ class ShelfController extends Controller
     {
         $data = $request->validate([
             'name' => 'required|min:3',
+            
         ]);
 
         Shelfs::create($data);

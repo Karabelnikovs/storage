@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Models\History;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use App\Models\Shelfs;
 
 class ProductController extends Controller
 {
@@ -14,6 +15,7 @@ class ProductController extends Controller
     {
         return Inertia::render('AddProduct', [
             'products' => Products::paginate(3),
+            'shelfs' => Shelfs::all()
         ]);
     }
 
@@ -23,6 +25,7 @@ class ProductController extends Controller
             'name' => 'required|min:3',
             'description' => 'required|min:3',
             'quantity' => 'required|integer',
+            'shelf_id' => 'required'
         ]);
 
         $product = Products::create($data);

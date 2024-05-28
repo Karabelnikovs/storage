@@ -7,12 +7,13 @@ import PrimaryButton from "@/Components/PrimaryButton";
 import TextInput from "@/Components/TextInput";
 import { Head, Link, useForm, router, usePage } from "@inertiajs/react";
 
-const AddProduct = ({ auth, products }) => {
+const AddProduct = ({ auth, products, shelfs }) => {
     const { flash, errors } = usePage().props;
     const { data, setData, reset } = useForm({
         name: "",
         description: "",
         quantity: "",
+        shelf_id: null,
     });
     const saveProduct = (e) => {
         e.preventDefault();
@@ -126,6 +127,42 @@ const AddProduct = ({ auth, products }) => {
                                                         {errors.quantity}
                                                     </p>
                                                 )}
+
+                                                <div className="relative border-none mt-6">
+                                                    <select
+                                                        name="shelf_id"
+                                                        value={data.shelf_id}
+                                                        className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                                        onChange={(e) =>
+                                                            setData(
+                                                                "shelf_id",
+                                                                e.target.value
+                                                            )
+                                                        }
+                                                        required
+                                                    >
+                                                        <option
+                                                            value=""
+                                                            disabled
+                                                        >
+                                                            Select a product
+                                                        </option>
+                                                        {shelfs.map((shelf) => (
+                                                            <option
+                                                                key={shelf.id}
+                                                                value={shelf.id}
+                                                            >
+                                                                {shelf.name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {errors.shelf_id && (
+                                                        <p className="text-red-700 text-sm mt-2">
+                                                            {errors.shelf_id}
+                                                        </p>
+                                                    )}
+                                                </div>
+
                                                 <div className="relative">
                                                     <button className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-green-100 to-lime-200 py-3 px-6 font-dm text-base font-medium text-gray-440 shadow-xl shadow-lime-300/45 transition-transform duration-200 ease-in-out hover:scale-[1.02]">
                                                         Submit
