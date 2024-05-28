@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-
+use App\Models\Orders;
+use App\Models\Order_Item;
 
 use Inertia\Inertia;
 
@@ -25,14 +25,12 @@ class DataManagementController extends Controller
     public function destroy($id)
     {
         $product = Products::findOrFail($id);
-
-        // Izveidojiet vēstures ierakstu pirms produkta izdzēšanas
+        Order_Item::where('product_id', $id)->delete();
+        
         $history = new History();
-        $history->user_id = Auth::id(); // Get the authenticated user's ID
+        $history->user_id = Auth::id(); 
         $history->action = 'Product Deleted';
-        $formattedCreatedAt = Carbon::parse($history->created_at)->format('Y-m-d H:i:s');
-
-        $history->description = Auth::user()->name . ' Product ' . $product->name . ' Deleted database '.$formattedCreatedAt;
+        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> Product ' . $product->name . ' Deleted.';
         $history->save();
 
         $product->delete();
