@@ -137,6 +137,10 @@ const getColorClass = (action) => {
             return "bg-yellow-100"; // Light yellow background
         case "Product Deleted":
             return "bg-red-100"; // Light red background
+            case "Login":
+                return "bg-red-300"; // Light red background
+                case "Logout":
+                    return "bg-red-200"; // Light red background
         default:
             return "bg-neutral-100"; // Light neutral background
     }

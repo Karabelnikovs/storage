@@ -40,8 +40,7 @@ class AuthenticatedSessionController extends Controller
         $history->user_id = Auth::id(); // Get the authenticated user's ID
         $history->action = 'Login';
         $formattedCreatedAt = Carbon::parse($history->created_at)->format('Y-m-d H:i:s');
-
-        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> Login '.$formattedCreatedAt;
+        $history->description =  Auth::user()->name . ' Login database '.$formattedCreatedAt;
         $history->save();
 
         return redirect()->intended(route('dashboard', absolute: false));
@@ -57,7 +56,7 @@ class AuthenticatedSessionController extends Controller
         $history->user_id = Auth::id(); // Get the authenticated user's ID
         $history->action = 'Logout';
         $formattedCreatedAt = Carbon::parse($history->created_at)->format('Y-m-d H:i:s');
-        $history->description = '<span style="color:blue;">' . Auth::user()->name . '</span> logged out.'.$formattedCreatedAt;
+        $history->description = Auth::user()->name . ' logged out database '.$formattedCreatedAt;
         $history->save();
     
         Auth::guard('web')->logout();
