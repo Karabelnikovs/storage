@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/history', [HistoryController::class, 'index'])->name('history.index');
     Route::get('/shelfs-add', [ShelfController::class, 'addShelf'])->name('shelfs.add');
     Route::post('/shelfs', [ShelfController::class, 'store'])->name('shelfs.store');
+    Route::get('/shelfs', [HistoryController::class, 'index'])->name('shelfs.index');
+
 });
 
 require __DIR__.'/auth.php';

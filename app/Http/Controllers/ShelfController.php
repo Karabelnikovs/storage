@@ -25,4 +25,9 @@ class ShelfController extends Controller
 
         return back()->with('message', 'Shelf built successfully!');
     }
+    public function index(){
+        return Inertia::render('ManageShelfs',  [
+            'shelfs' => Shelfs::paginate(4)
+        ]);
+    }
 }
