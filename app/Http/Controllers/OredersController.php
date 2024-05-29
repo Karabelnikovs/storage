@@ -43,4 +43,15 @@ class OredersController extends Controller
         return redirect()->back()->with('success', 'Order created successfully!');
     }
 
+    public function updateStatus(int $orderId)
+    {
+        $order = Orders::findOrFail($orderId);
+
+        $order->update([
+            'status' => !$order->status, 
+        ]);
+
+        return redirect()->back()->with('success', 'Order status updated successfully!');
+    }
+
 }

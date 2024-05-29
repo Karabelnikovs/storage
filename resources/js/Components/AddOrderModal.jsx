@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 const AddOrderModal = ({ setShowAdd, users, products }) => {
     const { data, setData, reset } = useForm({
         items: [{ productName: "", quantity: "" }],
-        user_id: users[0].id,
+        user_id: null,
     });
     const [errors, setErrors] = useState({});
 
@@ -189,6 +189,14 @@ const AddOrderModal = ({ setShowAdd, users, products }) => {
                                                 }
                                                 required
                                             >
+                                                <option
+                                                    value=""
+                                                    selected
+                                                    disabled
+                                                >
+                                                    Select a user
+                                                </option>
+
                                                 {users.map((user, index) => (
                                                     <option value={user.id}>
                                                         {user.name} ({user.role}
