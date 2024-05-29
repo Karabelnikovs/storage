@@ -16,12 +16,12 @@ const OrderCard = ({
     return (
         <>
             <div className="rounded-2xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl bg-gradient-to-bl from-green-100 to-lime-200">
-                <button
+                {/* <button
                     className="absolute left-3 top-3 text-gray-400"
                     onClick={() => handleShowEdit(order)}
                 >
                     <RiEditCircleLine size={22} />
-                </button>
+                </button> */}
                 <button
                     className="absolute right-3 top-3 text-gray-400"
                     onClick={() => handleShowDelete(order)}

@@ -4,7 +4,7 @@ import { Head, usePage, router } from "@inertiajs/react";
 import AddProductCard from "@/Components/AddProductCard";
 import AddOrderModal from "@/Components/AddOrderModal";
 import EditProductModal from "@/Components/EditProductModal";
-import DeleteProductModal from "@/Components/DeleteProductModal";
+import DeleteOrderModal from "@/Components/DeleteOrderModal";
 import toast from "react-hot-toast";
 import OrderCard from "@/Components/OrderCard";
 import Pagination from "@/Components/Pagination";
@@ -15,7 +15,7 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
     const [showDelete, setShowDelete] = useState(false);
     const [orders, setOrders] = useState(initialOrders.data);
     const [editProduct, setEditProduct] = useState(null);
-    const [deleteProduct, setDeleteProduct] = useState(false);
+    const [deleteOrder, setDeleteOrder] = useState(false);
     const { flash, errors } = usePage().props;
 
     const handleShowAdd = () => {
@@ -26,9 +26,9 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
         setShowEdit(true);
         setEditProduct(product);
     };
-    const handleShowDelete = (product) => {
+    const handleShowDelete = (order) => {
         setShowDelete(true);
-        setDeleteProduct(product);
+        setDeleteOrder(order);
     };
 
     const handleOrderStatusChange = (id) => {
@@ -108,15 +108,15 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
                                         products={products}
                                     />
                                 )}
-                                {showEdit && editProduct && (
+                                {/* {showEdit && editProduct && (
                                     <EditProductModal
                                         product={editProduct}
                                         setShowEdit={setShowEdit}
                                     />
-                                )}
-                                {showDelete && deleteProduct && (
-                                    <DeleteProductModal
-                                        product={deleteProduct}
+                                )} */}
+                                {showDelete && deleteOrder && (
+                                    <DeleteOrderModal
+                                        order={deleteOrder}
                                         setShowDelete={setShowDelete}
                                     />
                                 )}
