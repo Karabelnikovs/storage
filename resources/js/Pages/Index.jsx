@@ -1,21 +1,22 @@
-
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import UserCard from "@/Components/UserCard";
 import AddUserCard from "@/Components/AddUserCard";
 import EditUserModal from "@/Components/EditUserModal";
-import AddUserModal from "@/Components/AddUserModal";  
+import AddUserModal from "@/Components/AddUserModal";
+import DeleteProductModal from "@/Components/DeleteUserModal";
 import { Head, usePage, useForm } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import toast from "react-hot-toast";
 
 const UserManagement = ({ auth, users: initialUsers }) => {
-    const [showAdd, setShowAdd] = useState(false);  
+    const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
+    const [deleteUser, setDeleteUser] = useState(null);
+    const [showDelete, setShowDelete] = useState(false);
     const [users, setUsers] = useState(initialUsers.data);
     const { flash, errors } = usePage().props;
-
     const { user } = auth;
     const { role } = user;
 
@@ -28,16 +29,39 @@ const UserManagement = ({ auth, users: initialUsers }) => {
     const { post, setData } = useForm();
 
     const handleShowEdit = (user) => {
-        setShowEdit(true);
-        setEditingUser(user);
+        if (role !== "admin" || user.role !== "admin" || user.id === auth.user.id) {
+            setShowEdit(true);
+            setEditingUser(user);
+        } else {
+            toast.error("You are not authorized to edit this user.");
+        }
     };
 
     const handleRoleChange = (userId, newRole) => {
-       
+        if (role === "admin" && newRole !== "admin") {
+            // Handle role change
+        } else {
+            toast.error("You are not authorized to change the role of this user.");
+        }
     };
 
     const handleUserAdded = (newUser) => {
-        // Add user logic
+        // Handle user added
+    };
+
+    const handleShowDelete = (user) => {
+        if (user.id === auth.user.id) {
+            toast.error("You can't delete yourself here.");
+        } else if (role === "admin") {
+            if (user.role !== "admin") {
+                setShowDelete(true);
+                setDeleteUser(user);
+            } else {
+                toast.error("You are not authorized to delete other admins.");
+            }
+        } else {
+            toast.error("You are not authorized to delete users.");
+        }
     };
 
     return (
@@ -58,6 +82,7 @@ const UserManagement = ({ auth, users: initialUsers }) => {
                                             role={user.role}
                                             email={user.email}
                                             handleShowEdit={() => handleShowEdit(user)}
+                                            handleShowDelete={() => handleShowDelete(user)}
                                             user={user}
                                         />
                                     </div>
@@ -74,7 +99,7 @@ const UserManagement = ({ auth, users: initialUsers }) => {
                             {showEdit && editingUser && (
                                 <EditUserModal
                                     user={editingUser}
-                                    setShowEdit={setShowEdit} 
+                                    setShowEdit={setShowEdit}
                                     handleRoleChange={handleRoleChange}
                                 />
                             )}
@@ -82,6 +107,12 @@ const UserManagement = ({ auth, users: initialUsers }) => {
                                 <AddUserModal
                                     setShowAdd={setShowAdd}
                                     onUserAdded={handleUserAdded}
+                                />
+                            )}
+                            {showDelete && deleteUser && (
+                                <DeleteProductModal
+                                    user={deleteUser}
+                                    setShowDelete={setShowDelete}
                                 />
                             )}
                         </div>
