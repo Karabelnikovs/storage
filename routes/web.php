@@ -59,6 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/shelfs-add', [ShelfController::class, 'addShelf'])->name('shelfs.add');
     Route::post('/shelfs', [ShelfController::class, 'store'])->name('shelfs.store');
     Route::get('/shelfs', [ShelfController::class, 'index'])->name('shelfs.index');
+    Route::put('/orders-status/{id}', [OredersController::class, 'updateStatus'])->name('orders.status');
+
 });
 
 require __DIR__.'/auth.php';

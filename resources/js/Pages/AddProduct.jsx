@@ -30,8 +30,8 @@ const AddProduct = ({ auth, products, shelfs }) => {
                 <Head title="Add Product" />
 
                 <div className="flex items-center justify-center">
-                    <form onSubmit={saveProduct} className="w-full mt-10">
-                        <div className="py-6 flex flex-col justify-center sm:py-12">
+                    <form onSubmit={saveProduct} className="w-full">
+                        <div className="py-6 flex flex-col justify-center sm:py-8">
                             <div className="relative py-3 sm:max-w-xl sm:mx-auto">
                                 <div className="absolute inset-0 bg-gradient-to-bl from-green-100 to-lime-200 shadow-xl transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
                                 <div className="relative px-4 py-10 bg-white shadow-xl sm:rounded-3xl sm:p-20">
@@ -144,9 +144,10 @@ const AddProduct = ({ auth, products, shelfs }) => {
                                                     >
                                                         <option
                                                             value=""
+                                                            selected
                                                             disabled
                                                         >
-                                                            Select a product
+                                                            Select a shelf
                                                         </option>
                                                         {shelfs.map((shelf) => (
                                                             <option

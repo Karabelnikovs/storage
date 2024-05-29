@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, usePage } from "@inertiajs/react";
+import { Head, usePage, router } from "@inertiajs/react";
 import AddProductCard from "@/Components/AddProductCard";
 import AddOrderModal from "@/Components/AddOrderModal";
 import EditProductModal from "@/Components/EditProductModal";
@@ -31,6 +31,20 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
         setDeleteProduct(product);
     };
 
+    const handleOrderStatusChange = (id) => {
+        router.put(`/orders-status/${id}`, {
+            onSuccess: () => {
+                toast.success("Order status updated successfully!");
+                reset();
+                window.location.reload();
+            },
+            onError: (error) => {
+                toast.error("Failed to update order status.");
+                console.log(error);
+            },
+        });
+    };
+
     useEffect(() => {
         if (flash && flash.message) {
             toast.success(flash.message);
@@ -39,6 +53,10 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
 
     const { user } = auth;
     const { role } = user;
+
+    const processedUsers = Object.values(users);
+    console.log(processedUsers);
+
     return (
         <>
             <AuthenticatedLayout user={user}>
@@ -57,19 +75,22 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
                                             className="w-48 h-48"
                                             key={order.id}
                                         >
-                                            {users[order.user_id] && (
-                                                <OrderCard
-                                                    status={order.status}
-                                                    handleShowEdit={
-                                                        handleShowEdit
-                                                    }
-                                                    order={order}
-                                                    handleShowDelete={
-                                                        handleShowDelete
-                                                    }
-                                                    name={users[order.user_id]}
-                                                />
-                                            )}
+                                            <OrderCard
+                                                status={order.status}
+                                                handleShowEdit={handleShowEdit}
+                                                order={order}
+                                                handleShowDelete={
+                                                    handleShowDelete
+                                                }
+                                                name={
+                                                    processedUsers[
+                                                        order.user_id - 1
+                                                    ].name
+                                                }
+                                                handleOrderStatusChange={
+                                                    handleOrderStatusChange
+                                                }
+                                            />
                                         </div>
                                     ))}
                                 </div>
