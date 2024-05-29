@@ -128,6 +128,9 @@ const EditUserModal = ({ setShowEdit, user }) => {
                                                     <option value="admin">
                                                         Admin
                                                     </option>
+                                                    <option value="sorter">
+                                                        Sorter
+                                                    </option>
                                                 </select>
                                                 <label
                                                     htmlFor="role"
