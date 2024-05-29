@@ -8,7 +8,7 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
         email: "",
         password: "",
         password_confirmation: "",
-        role: "worker", 
+        role: "worker",
     });
 
     const [errors, setErrors] = useState({});
@@ -18,7 +18,8 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
         if (!data.name) newErrors.name = "Name is required.";
         if (!data.email) newErrors.email = "Email is required.";
         if (!data.password) newErrors.password = "Password is required.";
-        if (data.password !== data.password_confirmation) newErrors.password_confirmation = "Passwords do not match.";
+        if (data.password !== data.password_confirmation)
+            newErrors.password_confirmation = "Passwords do not match.";
         if (!data.role) newErrors.role = "Role is required.";
         return newErrors;
     };
@@ -56,7 +57,9 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                         <div className="absolute inset-0 bg-gradient-to-bl from-green-100 to-lime-200 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
                         <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                             <div className="max-w-md mx-auto">
-                                <h1 className="text-2xl font-semibold">Add User</h1>
+                                <h1 className="text-2xl font-semibold">
+                                    Add User
+                                </h1>
                                 <div className="divide-y divide-gray-200">
                                     <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                         <div className="relative">
@@ -67,7 +70,12 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 type="text"
                                                 className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                 placeholder="Name"
-                                                onChange={(e) => setData("name", e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "name",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 value={data.name}
                                             />
                                             <label
@@ -77,7 +85,9 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 Name
                                             </label>
                                             {errors.name && (
-                                                <p className="text-red-700 text-sm mt-2">{errors.name}</p>
+                                                <p className="text-red-700 text-sm mt-2">
+                                                    {errors.name}
+                                                </p>
                                             )}
                                         </div>
                                         <div className="relative">
@@ -88,7 +98,12 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 type="email"
                                                 className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                 placeholder="Email"
-                                                onChange={(e) => setData("email", e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "email",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 value={data.email}
                                             />
                                             <label
@@ -98,7 +113,9 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 Email
                                             </label>
                                             {errors.email && (
-                                                <p className="text-red-700 text-sm mt-2">{errors.email}</p>
+                                                <p className="text-red-700 text-sm mt-2">
+                                                    {errors.email}
+                                                </p>
                                             )}
                                         </div>
                                         <div className="relative">
@@ -109,7 +126,12 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 type="password"
                                                 className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                 placeholder="Password"
-                                                onChange={(e) => setData("password", e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "password",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 value={data.password}
                                             />
                                             <label
@@ -119,7 +141,9 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 Password
                                             </label>
                                             {errors.password && (
-                                                <p className="text-red-700 text-sm mt-2">{errors.password}</p>
+                                                <p className="text-red-700 text-sm mt-2">
+                                                    {errors.password}
+                                                </p>
                                             )}
                                         </div>
                                         <div className="relative">
@@ -130,8 +154,15 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 type="password"
                                                 className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
                                                 placeholder="Confirm Password"
-                                                onChange={(e) => setData("password_confirmation", e.target.value)}
-                                                value={data.password_confirmation}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "password_confirmation",
+                                                        e.target.value
+                                                    )
+                                                }
+                                                value={
+                                                    data.password_confirmation
+                                                }
                                             />
                                             <label
                                                 htmlFor="password_confirmation"
@@ -140,7 +171,11 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 Confirm Password
                                             </label>
                                             {errors.password_confirmation && (
-                                                <p className="text-red-700 text-sm mt-2">{errors.password_confirmation}</p>
+                                                <p className="text-red-700 text-sm mt-2">
+                                                    {
+                                                        errors.password_confirmation
+                                                    }
+                                                </p>
                                             )}
                                         </div>
                                         <div className="relative">
@@ -148,12 +183,23 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 id="role"
                                                 name="role"
                                                 className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 border-t-0 border-r-0 border-l-0 focus:outline-none"
-                                                onChange={(e) => setData("role", e.target.value)}
+                                                onChange={(e) =>
+                                                    setData(
+                                                        "role",
+                                                        e.target.value
+                                                    )
+                                                }
                                                 value={data.role}
                                             >
-                                                <option value="admin">Admin</option>
-                                                <option value="worker">Worker</option>
-                                                <option value="sorter">Sorter</option>
+                                                <option value="admin">
+                                                    Admin
+                                                </option>
+                                                <option value="worker">
+                                                    Worker
+                                                </option>
+                                                <option value="sorter">
+                                                    Sorter
+                                                </option>
                                             </select>
                                             <label
                                                 htmlFor="role"
@@ -162,13 +208,15 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 Role
                                             </label>
                                             {errors.role && (
-                                                <p className="text-red-700 text-sm mt-2">{errors.role}</p>
+                                                <p className="text-red-700 text-sm mt-2">
+                                                    {errors.role}
+                                                </p>
                                             )}
                                         </div>
                                         <div className="relative">
                                             <button
                                                 type="submit"
-                                                className="bg-green-500 text-white px-4 py-2 rounded-md"
+                                                className="mt-8 inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-green-100 to-lime-200 py-3 px-6 font-dm text-base font-medium text-gray-440 shadow-xl shadow-lime-300/45 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
                                             >
                                                 Save User
                                             </button>
