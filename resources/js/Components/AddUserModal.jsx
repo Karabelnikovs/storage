@@ -191,6 +191,13 @@ const AddUserModal = ({ setShowAdd, onUserAdded }) => {
                                                 }
                                                 value={data.role}
                                             >
+                                                <option
+                                                    value=""
+                                                    disabled
+                                                    selected
+                                                >
+                                                    Choose role
+                                                </option>
                                                 <option value="admin">
                                                     Admin
                                                 </option>
