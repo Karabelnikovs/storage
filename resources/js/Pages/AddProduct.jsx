@@ -144,6 +144,7 @@ const AddProduct = ({ auth, products, shelfs }) => {
                                                     >
                                                         <option
                                                             value=""
+                                                            selected
                                                             disabled
                                                         >
                                                             Select a shelf

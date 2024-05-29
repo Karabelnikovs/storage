@@ -30,13 +30,23 @@ class OredersController extends Controller
             ]);
 
             foreach ($request->items as $item) {
+                
                 $product = Products::where('name', $item['productName'])->first();
-
-                Order_Item::create([
-                    'order_id' => $order->id,
-                    'product_id' => $product->id,
-                    'quantity' => $item['quantity'],
-                ]);
+                if($item['quantity'] >= $product['quantity']){
+                    Order_Item::create([
+                        'order_id' => $order->id,
+                        'product_id' => $product->id,
+                        'quantity' => $product['quantity'],
+                    ]);
+                    
+                }
+                else{
+                    Order_Item::create([
+                        'order_id' => $order->id,
+                        'product_id' => $product->id,
+                        'quantity' => $item['quantity'],
+                    ]);
+                }
             }
         });
 
