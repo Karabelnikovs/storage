@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/shelfs', [ShelfController::class, 'store'])->name('shelfs.store');
     Route::get('/shelfs', [ShelfController::class, 'index'])->name('shelfs.index');
     Route::put('/orders-status/{id}', [OredersController::class, 'updateStatus'])->name('orders.status');
+    Route::delete('/orders/{id}', [OredersController::class, 'destroy'])->name('orders.destroy');
 
 });
 
