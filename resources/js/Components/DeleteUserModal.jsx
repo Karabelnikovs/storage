@@ -2,7 +2,7 @@ import React from "react";
 import { router } from "@inertiajs/react";
 import toast from "react-hot-toast";
 
-const DeleteUserModal = ({ user, setShowDelete }) => {
+const DeleteUserModal = ({ setShowDelete, user }) => {
     const handleDelete = (userId) => {
         router.post(
             `/user-management/${userId}`,
@@ -13,7 +13,7 @@ const DeleteUserModal = ({ user, setShowDelete }) => {
                 onSuccess: () => {
                     setShowDelete(false);
                     toast.success("User deleted successfully!");
-                    window.location.reload(); // Reload the page to reflect changes
+                    window.location.reload(); 
                 },
                 onError: () => {
                     toast.error("Failed to delete user.");

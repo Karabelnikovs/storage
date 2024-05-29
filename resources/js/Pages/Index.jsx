@@ -3,14 +3,14 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import UserCard from "@/Components/UserCard";
 import AddUserCard from "@/Components/AddUserCard";
 import EditUserModal from "@/Components/EditUserModal";
-import AddUserModal from "@/Components/AddUserModal";  
-import DeleteProductModal from "@/Components/DeleteProductModal";  
+import AddUserModal from "@/Components/AddUserModal";
+import DeleteProductModal from "@/Components/DeleteUserModal";
 import { Head, usePage, useForm } from "@inertiajs/react";
 import Pagination from "@/Components/Pagination";
 import toast from "react-hot-toast";
 
 const UserManagement = ({ auth, users: initialUsers }) => {
-    const [showAdd, setShowAdd] = useState(false);  
+    const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [editingUser, setEditingUser] = useState(null);
     const [deleteUser, setDeleteUser] = useState(null);
@@ -39,22 +39,28 @@ const UserManagement = ({ auth, users: initialUsers }) => {
 
     const handleRoleChange = (userId, newRole) => {
         if (role === "admin" && newRole !== "admin") {
+            // Handle role change
         } else {
             toast.error("You are not authorized to change the role of this user.");
         }
     };
 
     const handleUserAdded = (newUser) => {
+        // Handle user added
     };
 
     const handleShowDelete = (user) => {
         if (user.id === auth.user.id) {
             toast.error("You can't delete yourself here.");
-        } else if (role === "admin" && user.role !== "admin") {
-            setShowDelete(true);
-            setDeleteUser(user);
+        } else if (role === "admin") {
+            if (user.role !== "admin") {
+                setShowDelete(true);
+                setDeleteUser(user);
+            } else {
+                toast.error("You are not authorized to delete other admins.");
+            }
         } else {
-            toast.error("You are not authorized to delete this user.");
+            toast.error("You are not authorized to delete users.");
         }
     };
 
@@ -93,7 +99,7 @@ const UserManagement = ({ auth, users: initialUsers }) => {
                             {showEdit && editingUser && (
                                 <EditUserModal
                                     user={editingUser}
-                                    setShowEdit={setShowEdit} 
+                                    setShowEdit={setShowEdit}
                                     handleRoleChange={handleRoleChange}
                                 />
                             )}
@@ -121,4 +127,3 @@ const UserManagement = ({ auth, users: initialUsers }) => {
 };
 
 export default UserManagement;
-
