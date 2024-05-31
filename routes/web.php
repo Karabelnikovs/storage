@@ -14,7 +14,7 @@ use App\Http\Controllers\HistoryController;
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
-        // 'canRegister' => Route::has('register'),
+        'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
