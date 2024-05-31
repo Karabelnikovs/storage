@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, router, usePage } from "@inertiajs/react";
 import toast from "react-hot-toast";
+import { RiCloseCircleLine } from "react-icons/ri";
 
 const EditProductModal = ({ setShowEdit, product, shelfs }) => {
     const { errors } = usePage().props;
@@ -39,6 +40,13 @@ const EditProductModal = ({ setShowEdit, product, shelfs }) => {
                         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
                             <div className="absolute inset-0 bg-gradient-to-bl from-green-100 to-lime-200 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
                             <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
+                                <button
+                                    type="button"
+                                    className="absolute top-4 right-4 text-gray-400"
+                                    onClick={() => setShowEdit(false)}
+                                >
+                                    <RiCloseCircleLine size={24} />
+                                </button>
                                 <div className="max-w-md mx-auto">
                                     <div>
                                         <h1 className="text-2xl font-semibold">
