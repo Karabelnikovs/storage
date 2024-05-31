@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import { useForm, router } from "@inertiajs/react";
 import toast from "react-hot-toast";
 
-const AddProductModal = ({ setShowAdd }) => {
+const AddProductModal = ({ setShowAdd, shelfs }) => {
     const { data, setData, reset } = useForm({
         name: "",
         description: "",
         quantity: "",
+        shelf_id: null,
     });
 
     const [errors, setErrors] = useState({});
@@ -144,6 +145,41 @@ const AddProductModal = ({ setShowAdd }) => {
                                                 {errors.quantity && (
                                                     <p className="text-red-700 text-sm mt-2">
                                                         {errors.quantity}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div className="relative border-none mt-6">
+                                                <select
+                                                    name="shelf_id"
+                                                    value={data.shelf_id}
+                                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "shelf_id",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                >
+                                                    <option
+                                                        value=""
+                                                        selected
+                                                        disabled
+                                                    >
+                                                        Select a shelf
+                                                    </option>
+                                                    {shelfs.map((shelf) => (
+                                                        <option
+                                                            key={shelf.id}
+                                                            value={shelf.id}
+                                                        >
+                                                            {shelf.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                                {errors.shelf_id && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.shelf_id}
                                                     </p>
                                                 )}
                                             </div>

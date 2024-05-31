@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Orders;
+use App\Models\Order_Item;
 
 class UserManagementController extends Controller
 {
@@ -139,6 +141,13 @@ class UserManagementController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
+        
+        $orders = Orders::where('user_id', $user->id);
+        foreach($orders as $order){
+        Order_Item::where('order_id', $order->id)->delete();
+        }
+        Orders::where('user_id', $user->id)->delete();
+
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }

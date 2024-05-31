@@ -48,6 +48,7 @@ class ProductController extends Controller
             'name' => 'required|min:3',
             'description' => 'required|min:3',
             'quantity' => 'required|integer',
+            'shelf_id' => 'required'
         ]);
 
         $product->update($data);

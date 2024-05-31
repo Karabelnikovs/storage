@@ -12,13 +12,15 @@ use Carbon\Carbon;
 use App\Models\Orders;
 use App\Models\Order_Item;
 use Inertia\Inertia;
+use App\Models\Shelfs;
 
 class DataManagementController extends Controller
 {
     public function index()
     {
         return Inertia::render('DataManage', [
-            'products' => Products::paginate(4)
+            'products' => Products::paginate(4),
+            'shelfs' => Shelfs::all()
         ]);
     }
 

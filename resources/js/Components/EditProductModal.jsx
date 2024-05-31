@@ -2,13 +2,14 @@ import React from "react";
 import { useForm, router, usePage } from "@inertiajs/react";
 import toast from "react-hot-toast";
 
-const EditProductModal = ({ setShowEdit, product }) => {
+const EditProductModal = ({ setShowEdit, product, shelfs }) => {
     const { errors } = usePage().props;
 
     const { data, setData, reset } = useForm({
         name: product.name,
         description: product.description,
         quantity: product.quantity,
+        shelf_id: product.shelf_id,
     });
 
     const saveProduct = (e) => {
@@ -19,11 +20,10 @@ const EditProductModal = ({ setShowEdit, product }) => {
                 setShowEdit(false);
                 reset();
                 window.location.reload(); // Reload the page to show changes
-
             },
             onError: () => {
                 toast.error("Failed to update product.");
-            }
+            },
         });
     };
 
@@ -35,7 +35,7 @@ const EditProductModal = ({ setShowEdit, product }) => {
                     onClick={() => setShowEdit(false)}
                 ></div>
                 <form className="w-full" onSubmit={saveProduct}>
-                    <div className="py-6 flex flex-col justify-center sm:py-12" >
+                    <div className="py-6 flex flex-col justify-center sm:py-12">
                         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
                             <div className="absolute inset-0 bg-gradient-to-bl from-green-100 to-lime-200 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
                             <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
@@ -129,6 +129,41 @@ const EditProductModal = ({ setShowEdit, product }) => {
                                                 {errors.quantity && (
                                                     <p className="text-red-700 text-sm mt-2">
                                                         {errors.quantity}
+                                                    </p>
+                                                )}
+                                            </div>
+                                            <div className="relative border-none mt-6">
+                                                <select
+                                                    name="shelf_id"
+                                                    value={data.shelf_id}
+                                                    className="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                                    onChange={(e) =>
+                                                        setData(
+                                                            "shelf_id",
+                                                            e.target.value
+                                                        )
+                                                    }
+                                                    required
+                                                >
+                                                    <option
+                                                        value=""
+                                                        selected
+                                                        disabled
+                                                    >
+                                                        Select a shelf
+                                                    </option>
+                                                    {shelfs.map((shelf) => (
+                                                        <option
+                                                            key={shelf.id}
+                                                            value={shelf.id}
+                                                        >
+                                                            {shelf.name}
+                                                        </option>
+                                                    ))}
+                                                </select>
+                                                {errors.shelf_id && (
+                                                    <p className="text-red-700 text-sm mt-2">
+                                                        {errors.shelf_id}
                                                     </p>
                                                 )}
                                             </div>

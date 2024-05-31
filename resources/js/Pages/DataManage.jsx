@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import ProductCard from "@/Components/ProductCard";
 import Pagination from "@/Components/Pagination";
 
-const DataManage = ({ products: initialProducts, auth }) => {
+const DataManage = ({ products: initialProducts, auth, shelfs }) => {
     const [showAdd, setShowAdd] = useState(false);
     const [showEdit, setShowEdit] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
@@ -83,12 +83,16 @@ const DataManage = ({ products: initialProducts, auth }) => {
                                     </div>
                                 )}
                                 {showAdd && (
-                                    <AddProductModal setShowAdd={setShowAdd} />
+                                    <AddProductModal
+                                        setShowAdd={setShowAdd}
+                                        shelfs={shelfs}
+                                    />
                                 )}
                                 {showEdit && editProduct && (
                                     <EditProductModal
                                         product={editProduct}
                                         setShowEdit={setShowEdit}
+                                        shelfs={shelfs}
                                     />
                                 )}
                                 {showDelete && deleteProduct && (

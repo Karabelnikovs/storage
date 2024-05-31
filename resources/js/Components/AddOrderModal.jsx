@@ -166,15 +166,18 @@ const AddOrderModal = ({ setShowAdd, users, products }) => {
                                                 </div>
                                             </div>
                                         ))}
-                                        <div className="relative border-none">
-                                            <button
-                                                type="button"
-                                                onClick={addItem}
-                                                className="mt-4 inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-100 to-blue-200 py-2 px-4 font-dm text-base font-medium text-gray-440 shadow-xl shadow-blue-300/45 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
-                                            >
-                                                Add Another Item
-                                            </button>
-                                        </div>
+                                        {data.items.length < 2 && (
+                                            <div className="relative border-none">
+                                                <button
+                                                    type="button"
+                                                    onClick={addItem}
+                                                    className="mt-4 inline-flex items-center justify-center rounded-xl bg-gradient-to-tr from-blue-100 to-blue-200 py-2 px-4 font-dm text-base font-medium text-gray-440 shadow-xl shadow-blue-300/45 transition-transform duration-200 ease-in-out hover:scale-[1.02]"
+                                                >
+                                                    Add Another Item
+                                                </button>
+                                            </div>
+                                        )}
+
                                         <div className="relative border-none mt-6">
                                             <select
                                                 id="user"
