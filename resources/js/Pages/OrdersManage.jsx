@@ -31,20 +31,6 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
         setDeleteOrder(order);
     };
 
-    const handleOrderStatusChange = (id) => {
-        router.put(`/orders-status/${id}`, {
-            onSuccess: () => {
-                toast.success("Order status updated successfully!");
-                reset();
-                window.location.reload();
-            },
-            onError: (error) => {
-                toast.error("Failed to update order status.");
-                console.log(error);
-            },
-        });
-    };
-
     useEffect(() => {
         if (flash && flash.message) {
             toast.success(flash.message);
@@ -87,9 +73,9 @@ const OrdersManage = ({ orders: initialOrders, users, products, auth }) => {
                                                         order.user_id - 1
                                                     ].name
                                                 }
-                                                handleOrderStatusChange={
-                                                    handleOrderStatusChange
-                                                }
+                                                // handleOrderStatusChange={
+                                                //     handleOrderStatusChange
+                                                // }
                                             />
                                         </div>
                                     ))}

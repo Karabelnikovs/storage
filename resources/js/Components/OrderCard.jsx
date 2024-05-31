@@ -11,8 +11,21 @@ const OrderCard = ({
     order,
     handleShowDelete,
     name,
-    handleOrderStatusChange,
+    // handleOrderStatusChange,
 }) => {
+    const handleOrderStatusChange = (id) => {
+        router.put(`/orders-status/${id}`, {
+            onSuccess: () => {
+                toast.success("Order status updated successfully!");
+                reset();
+                window.location.reload();
+            },
+            onError: (error) => {
+                toast.error("Failed to update order status.");
+                console.log(error);
+            },
+        });
+    };
     return (
         <>
             <div className="rounded-2xl overflow-hidden relative text-center p-4 group items-center flex flex-col max-w-sm hover:shadow-2xl transition-all duration-500 shadow-xl bg-gradient-to-bl from-green-100 to-lime-200">
